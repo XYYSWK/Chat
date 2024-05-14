@@ -1,0 +1,14 @@
+# sqlc 配置文件
+version: 1
+packages:
+  - name: "db" # 根据 sql 语句生成的 go 代码所在的包名
+    path: "dao/postgresql/sqlc" # 生成代码的路径
+    engine: "postgresql" # 数据库引擎
+    schema: "dao/postgresql/migration" # 有关表结构的语句
+    queries: "dao/postgresql/queries" # 查询语句
+    emit_empty_slices: true # 如果为 true，则查询不到的值返回的切片将为空而不是 nil。默认为 false
+    emit_interface: true # 生成包含查询结构所有功能的接口
+    emit_prepared_queries: true # 生成预编译的查询语句，减少每次执行查询时的编译开销，并且可以防止 SQL 注入等安全问题。
+    emit_result_struct_pointers: true # 查询结果将作为指向结构的指针返回。返回多个结果的查询以指针切片的形式返回。
+    emit_params_struct_pointers: true # 参数将作为结构的指针传递
+    sql_package: pgx/v4 # pgx 是 用于连接和操作 postgres 数据库的 Go 语言库

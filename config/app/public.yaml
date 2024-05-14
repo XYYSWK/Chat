@@ -1,0 +1,64 @@
+Server: # 服务配置
+  RunMode: debug # gin 的运行模式（release 是生产模式）
+  HttpPort: :8888 # 默认的 HTTP 监听端口
+  ReadTimeout: 5s # 允许读取的最大持续时间
+  WriteTimeout: 5s # 允许写入的最大持续时间
+  DefaultContextTimeout: 10s # 默认上下文超时
+App: # App配置文件
+  Name: chat # App名称
+  Version: 1.0.0 # 版本号
+  StartTime: "2024-3-12" # 启动时间
+  MachineID: 0 # 机器ID
+Log: # 日志配置
+  Level: debug
+  LogSavePath: "storage/appLogs/" # 日志保存路径
+  HighLevelFile: error # 高级别日志文件名
+  LowLevelFile: info # 低级别日志文件名
+  LogFileExt: .log # 日志文件后缀
+  MaxSize: 10 # 日志文件最大大小（MB）
+  MaxAge: 30 # 日志文件最大保存天数
+  MaxBackups: 7 # 最大备份数
+  Compress: false # 是否压缩
+Page: # 分页
+  DefaultPageSize: 10
+  MaxPageSize: 200
+  PageKey: page
+  PageSizeKey: page_size
+Rules:
+  UsernameLenMax: 32 # 用户名最大长度
+  UsernameLenMin: 1 # 用户名最小长度
+  PasswordLenMax: 32 # 密码最大长度
+  PasswordLenMin: 6 # 密码最小长度
+  CodeLength: 6 # 验证码长度
+  UserMarkDuration: 60s # 用户发送验证码间隔时间
+  CodeMarkDuration: 5m # 验证码有效时间
+  AccountNumMax: 5 # 用户账号最大数量
+  BiggestFileSize: 1024000 # 最大文件大小
+  DefaultAvatarURL: "https://avatars.githubusercontent.com/u/132641360?v=4" # 默认头像
+Limit: #限流
+  IPLimit: # IP 限流
+    Cap: 10 # 令牌桶容量
+    GenNum: 5 # 每次生成的令牌数量
+    GenTime: 1 # 生成令牌的时间间隔，即每个多长时间生成一次令牌
+    Cost: 1 # 每次请求消耗的令牌数量
+  APILimit:
+    Email:  # 针对 email 类型的 API 限流配置
+      - Count: 5  # 限制在 1 秒内最多处理 5 个请求
+        Duration: 1s  # 限流时间间隔为 1 秒
+        Burst: 5  # 允许突发处理 5 个请求
+      - Count: 30  # 限制在 1 分钟内最多处理 30 个请求
+        Duration: 1m  # 限流时间间隔为 1 分钟
+        Burst: 5  # 允许突发处理 5 个请求
+    Upload:  # 针对 upload 类型的 API 限流配置
+      - Count: 1  # 限制在 1 秒内最多处理 1 个请求
+        Duration: 1s  # 限流时间间隔为 1 秒
+        Burst: 1  # 允许突发处理 1 个请求
+Auto:
+  Retry:
+    Duration: 5s # 重试间隔时间
+    MaxTimes: 3 # 最大重试次数
+  DeleteExpiredFileDuration: 12h # 删除过期文件的时间
+Worker: # 工作池配置
+  TaskChanCapacity: 50 # 任务队列容量
+  WorkerChanCapacity: 50 # 工作队列容量
+  WorkerNum: 10 # 工作池数量

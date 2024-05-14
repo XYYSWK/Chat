@@ -1,0 +1,33 @@
+Postgresql:
+  DriverName: postgres # 驱动名称
+  SourceName: user=postgres password=123456 host=121.36.86.143 port=5432 dbname=chatroom sslmode=disable # 数据源名称
+Redis:
+  Address: 121.36.86.143:6379 # redis 服务器地址
+  DB: 0 # redis 数据库索引（0-15）
+  Password: JCT1005kn. # 认证密码
+  PoolSize: 100 # redis 连接池大小
+  CacheTime: 10m # redis 缓存时间
+Email:
+  Password: dccxxhyjngdtcicj
+  IsSSL: true # 是否使用 SSL 加密
+  Host: smtp.qq.com # 邮箱服务器的主机地址，smtp.qq.com 是 QQ 邮件的 SMTP
+  Port: 465 # 邮箱服务器端口号
+  Username: 3469884427@qq.com
+  From: 3469884427@qq.com
+  To:
+    - 3469884427@qq.com
+Token:
+  Key: tqgymXijyHpZbeoXcOexVBHbBsBlDNrm # 密钥（必须是32个字节，因为我们使用的是 chacha20poly1305 加密算法）
+  UserTokenDuration: 24h # 用户 token 的有效期限
+  AccountTokenDuration: 720h # 账户 token 的有效期限
+  AuthorizationKey: Authorization
+  AuthorizationType: Bearer
+HuaWeiOBS:
+  BucketName: chatroom-bucket # 存储桶名称
+  BucketUrl: https://chatroom-bucket.obs.cn-north-4.myhuaweicloud.com # 存储桶 URL
+  Location: cn-north-4 # 华北-北京四
+  Endpoint: https://obs.cn-north-4.myhuaweicloud.com # 华北-北京四
+  BasePath: uploads/ # 上传文件时，文件在存储桶中的基础路径
+  AvatarType: NotAvatar
+  AccountAvatarUrl: account_avatars/
+  GroupAvatarUrl: group_avatars/ # 群组头像 URL

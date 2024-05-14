@@ -1,0 +1,4390 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/account/create": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "创建账号",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "创建账号信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2012:账户名已经存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamCreateAccount"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/delete": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "删除账号",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "账号 ID",
+                        "name": "account_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/info": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "根据ID查找账户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账号令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "账号ID",
+                        "name": "account_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2009:权限不足 2007:身份不存在 2008:身份验证失败 2010:账号不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetAccountByID"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/infos/account": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "更改账号信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账号令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "账号信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/infos/name": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "根据昵称模糊查找账号",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账号令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "maxLength": 20,
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "搜索名称",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "第几页",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页的大小",
+                        "name": "page_size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetAccountsByName"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/token": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "获取账号令牌",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "账号 ID",
+                        "name": "account_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetAccountToken"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/application/accept": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "application"
+                ],
+                "summary": "被申请者接受好友申请",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "需要接受的申请",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamAcceptApplication"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 3002:申请不存在 3004:重复操作申请",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/application/create": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "application"
+                ],
+                "summary": "创建好友申请",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "申请信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateApplication"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 3001:申请已经存在 3003:申请不合法 4001:关系已经存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/application/delete": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "application"
+                ],
+                "summary": "申请者删除好友申请",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "需要删除的申请",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamDeleteApplication"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 2009:权限不足 3002:申请不存在 3003:申请不合法",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/application/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "application"
+                ],
+                "summary": "账号查看和自身相关的好友申请（不论是申请者还是被申请者）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamListApplications"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/application/refuse": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "application"
+                ],
+                "summary": "被申请者拒绝好友申请",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "需要拒绝的申请",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamRefuseApplication"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 3002:申请不存在 3004:重复操作申请",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/email/exist": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "email"
+                ],
+                "summary": "是否已经注册过该 email",
+                "parameters": [
+                    {
+                        "maxLength": 50,
+                        "type": "string",
+                        "description": "邮箱",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/reply.ParamExistEmail"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/email/send": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "email"
+                ],
+                "summary": "发送验证码(邮件)",
+                "parameters": [
+                    {
+                        "description": "email",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamSendEmail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2006:邮箱已经注册 2003:邮件发送过于频繁，请稍后再试",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/file/avatar/account": {
+            "post": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "file"
+                ],
+                "summary": "更新账户头像",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "文件",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "description": "文件及账户信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUploadAccountAvatar"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 8001:存储失败",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamUploadAvatar"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/file/delete": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "file"
+                ],
+                "summary": "删除文件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamDeleteFile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 8002:文件不存在 8003文件删除失败",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/file/details": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "file"
+                ],
+                "summary": "获取文件详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件及账户信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamGetFileDetailsByID"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamFile"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/file/getFiles": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "file"
+                ],
+                "summary": "获取关系文件列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "关系ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamGetRelationFile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 8001:存储失败",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetRelationFile"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/file/publish": {
+            "post": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "file"
+                ],
+                "summary": "上传文件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "account_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "relation_id",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 8001:存储失败",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamPublishFile"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/create": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "创建群",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamCreateGroup"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/dissolve": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "解散群",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamDissolveGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/invite": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "邀请成员入群",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamInviteAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamInviteAccount"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "获取该账号所有的群聊信息列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetGroupList"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/members": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "查看所有群成员",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamGetGroupMembers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetGroupMembers"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/name": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "通过群名模糊查找群聊",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamGetGroupsByName"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7003:非群员",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetGroupsByName"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/quit": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "退出群聊",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamQuitGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/transfer": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "转让群",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamTransferGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/update": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "更新群信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamUpdateGroup"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/file": {
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "发布文件类型的消息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "文件",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "关系id",
+                        "name": "relation_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "回复消息id",
+                        "name": "rly_msg_id",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamCreateFileMsg"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/info/top": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "获取指定关系中的置顶消息，如果不存在则为 null",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "完整的消息详情,但不存在则为null",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetTopMsgByRelationID"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/list/content": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "通过内容模糊查找指定或所有关系中的消息，按照时间先后顺序倒序排序，不会查询撤回的消息（指定关系 ID \u003c 0 则查询所有关系中的消息）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "content",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "第几页",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页的大小",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "完整的消息详情，包含回复消息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetMsgsByContent"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/list/offer": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "获取所有关系指定时间戳之后的信息，获取的消息按照发布时间先后排序，同时包含是否已读的标识",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "拉取消息的最晚时间戳（精确到秒）",
+                        "name": "last_time",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "第几页",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页的大小",
+                        "name": "page_size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "完整的消息详情，包含回复消息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamOfferMsgsByAccountIDAndTime"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/list/pin": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "获取指定关系的 pin 消息，按照pin时间倒序排序",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "第几页",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页的大小",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "完整的消息详情，包含回复消息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetPinMsgsByRelationID"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/list/reply": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "获取指定消息的所有回复消息，按照回复时间先后排序",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "msg_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "第几页",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页的大小",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "完整的消息详情，包含回复消息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetRlyMsgsInfoByMsgID"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/list/time": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "获取指定关系指定时间戳之前的信息，获取的消息按照发布时间先后排序",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "拉取消息最晚的时间戳（精确到秒）",
+                        "name": "last_time",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "第几页",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页的大小",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "关系 ID",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "完整的消息详情，包含回复消息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetMsgsRelationIDAndTime"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/update/pin": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "更改消息的 pin 状态",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "消息 ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否 pin",
+                        "name": "is_pin",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "关系 ID",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在 5001:消息不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/update/revoke": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "撤回消息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "消息 ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在 5001:消息不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/message/update/top": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "message"
+                ],
+                "summary": "更改消息的置顶状态",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "消息 ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否置顶",
+                        "name": "is_top",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "关系 ID",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在 5001:消息不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/notify/create": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notify"
+                ],
+                "summary": "创建群通知",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateNotify"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7001:非群主 7003:非群成员",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGroupNotify"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/notify/delete": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notify"
+                ],
+                "summary": "获取群通知",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "群通知的 ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "群 ID",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7001:非群主 7003:非群成员",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/notify/get": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notify"
+                ],
+                "summary": "更具群ID获取群通知",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "relation_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7003:非群成员",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetNotifyByID"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/notify/update": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notify"
+                ],
+                "summary": "更新群通知",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "请求信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateNotify"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7001:非群主 7003:非群成员",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/friend/delete": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "删除好友关系（双向删除）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "关系 ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamDeleteFriend"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/friend/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "获取当前账户所有的好友",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetFriends"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/friend/name": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "通过姓名模糊查询好友（好友姓名或昵称）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "关系 ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamGetFriendsByName"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetFriendsByName"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/pins": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "获取当前账户所有pin的好友和群组列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetPins"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/shows": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "获取当前账户首页显示的好友和群组列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamGetShows"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/update/disturb": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "更新好友或群组的免打扰状态",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "关系ID，免打扰状态",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateSettingDisturb"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/update/nick_name": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "更改给好友的备注昵称或自己在群组中的昵称",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "关系ID，备注或群昵称",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateNickName"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/update/pin": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "更新好友或群组的pin（置顶）状态",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "关系ID，pin状态",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateSettingPin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/setting/update/show": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "setting"
+                ],
+                "summary": "更新好友或群组的是否展示的状态",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 账户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "关系ID，展示状态",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateSettingShow"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/deleteUser": {
+            "delete": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "删除用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2001:用户不存在 2007:身份不存在 2008:身份验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/login": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "用户登录",
+                "parameters": [
+                    {
+                        "description": "用户登录信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamLogin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数错误 1003:系统错误 2001:用户不存在",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamLogin"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/register": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "用户注册",
+                "parameters": [
+                    {
+                        "description": "用户注册信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamRegister"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2004:邮箱验证码校验失败 2006:邮箱已经注册",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/common.State"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/reply.ParamRegister"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/update/email": {
+            "put": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "更新用户邮箱",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "新邮箱和验证码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateUserEmail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2001:用户不存在 2004:邮箱验证码校验失败 2005:邮箱相同 2006:邮箱已经注册 2007:身份不存在 2008:身份验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/update/pwd": {
+            "put": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "更新用户密码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "验证码和新密码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamUpdateUserPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "1001:参数有误 1003:系统错误 2001:用户不存在 2004:邮箱验证码校验失败 2007:身份不存在 2008:身份验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/common.State"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "common.State": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "状态码，0：成功；否则失败",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "数据，失败时返回空"
+                },
+                "msg": {
+                    "description": "状态的具体描述",
+                    "type": "string"
+                }
+            }
+        },
+        "common.Token": {
+            "type": "object",
+            "properties": {
+                "expire_at": {
+                    "description": "token 过期时间",
+                    "type": "string"
+                },
+                "token": {
+                    "description": "token",
+                    "type": "string"
+                }
+            }
+        },
+        "model.MsgExtend": {
+            "type": "object",
+            "properties": {
+                "remind": {
+                    "description": "@ 的描述信息",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Remind"
+                    }
+                }
+            }
+        },
+        "model.Remind": {
+            "type": "object",
+            "required": [
+                "account_id",
+                "idx"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "被 @ 的账号 ID",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "idx": {
+                    "description": "第几个 @",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "model.Setting": {
+            "type": "object",
+            "properties": {
+                "friend_info": {
+                    "description": "好友信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.SettingFriendInfo"
+                        }
+                    ]
+                },
+                "group_info": {
+                    "description": "群组信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.SettingGroupInfo"
+                        }
+                    ]
+                },
+                "is_not_disturb": {
+                    "description": "是否免打扰",
+                    "type": "boolean"
+                },
+                "is_pin": {
+                    "description": "是否 pin",
+                    "type": "boolean"
+                },
+                "is_show": {
+                    "description": "是否显示",
+                    "type": "boolean"
+                },
+                "last_show": {
+                    "description": "最后显示时间",
+                    "type": "string"
+                },
+                "nick_name": {
+                    "description": "昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）",
+                    "type": "string"
+                },
+                "pin_time": {
+                    "description": "pin 时间",
+                    "type": "string"
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer"
+                },
+                "relation_type": {
+                    "description": "关系类型['group','friend']",
+                    "type": "string"
+                }
+            }
+        },
+        "model.SettingFriend": {
+            "type": "object",
+            "properties": {
+                "friend_info": {
+                    "description": "好友信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.SettingFriendInfo"
+                        }
+                    ]
+                },
+                "is_not_disturb": {
+                    "description": "是否免打扰",
+                    "type": "boolean"
+                },
+                "is_pin": {
+                    "description": "是否 pin",
+                    "type": "boolean"
+                },
+                "is_show": {
+                    "description": "是否显示",
+                    "type": "boolean"
+                },
+                "last_show": {
+                    "description": "最后显示时间",
+                    "type": "string"
+                },
+                "nick_name": {
+                    "description": "昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）",
+                    "type": "string"
+                },
+                "pin_time": {
+                    "description": "pin 时间",
+                    "type": "string"
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer"
+                },
+                "relation_type": {
+                    "description": "关系类型['group','friend']",
+                    "type": "string"
+                }
+            }
+        },
+        "model.SettingFriendInfo": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "好友 ID",
+                    "type": "integer"
+                },
+                "avatar": {
+                    "description": "好友头像",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "好友昵称",
+                    "type": "string"
+                }
+            }
+        },
+        "model.SettingGroup": {
+            "type": "object",
+            "properties": {
+                "group_info": {
+                    "description": "群组信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.SettingGroupInfo"
+                        }
+                    ]
+                },
+                "is_not_disturb": {
+                    "description": "是否免打扰",
+                    "type": "boolean"
+                },
+                "is_pin": {
+                    "description": "是否 pin",
+                    "type": "boolean"
+                },
+                "is_show": {
+                    "description": "是否显示",
+                    "type": "boolean"
+                },
+                "last_show": {
+                    "description": "最后显示时间",
+                    "type": "string"
+                },
+                "nick_name": {
+                    "description": "昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）",
+                    "type": "string"
+                },
+                "pin_time": {
+                    "description": "pin 时间",
+                    "type": "string"
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer"
+                },
+                "relation_type": {
+                    "description": "关系类型['group','friend']",
+                    "type": "string"
+                }
+            }
+        },
+        "model.SettingGroupInfo": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "description": "群组头像",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "群组的描述",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "群组名称",
+                    "type": "string"
+                },
+                "relation_id": {
+                    "description": "群组 ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.SettingPin": {
+            "type": "object",
+            "properties": {
+                "friend_info": {
+                    "description": "好友信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.SettingFriendInfo"
+                        }
+                    ]
+                },
+                "group_info": {
+                    "description": "群组信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.SettingGroupInfo"
+                        }
+                    ]
+                },
+                "nick_name": {
+                    "description": "昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）",
+                    "type": "string"
+                },
+                "pin_time": {
+                    "description": "pin 时间",
+                    "type": "string"
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer"
+                },
+                "relation_type": {
+                    "description": "关系类型['group','friend']",
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamAccountInfo": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "gender": {
+                    "description": "性别 [男，女，未知]",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "账号 ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "昵称",
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamApplicationInfo": {
+            "type": "object",
+            "properties": {
+                "account_id_1": {
+                    "description": "申请者账号 ID",
+                    "type": "integer"
+                },
+                "account_id_2": {
+                    "description": "被申请者账号 ID",
+                    "type": "integer"
+                },
+                "apply_msg": {
+                    "description": "申请信息",
+                    "type": "string"
+                },
+                "avatar": {
+                    "description": "对方账号的头像",
+                    "type": "string"
+                },
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "对方账号的名字",
+                    "type": "string"
+                },
+                "refuse": {
+                    "description": "拒绝信息",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态 [已申请，已拒绝，已同意]",
+                    "type": "string"
+                },
+                "update_at": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamBriefMsgInfo": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "账号ID 发送者ID",
+                    "type": "integer"
+                },
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "file_id": {
+                    "description": "文件ID 当消息类型为file时\u003e0",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "消息ID",
+                    "type": "integer"
+                },
+                "msg_content": {
+                    "description": "消息内容 文件则为url，文本则为文本内容，由拓展信息进行补充",
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "description": "消息扩展信息 可能为null",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.MsgExtend"
+                        }
+                    ]
+                },
+                "msg_type": {
+                    "description": "消息类型 [text,file]",
+                    "type": "string"
+                },
+                "notify_type": {
+                    "description": "通知类型 [system,common]",
+                    "type": "string"
+                },
+                "relation_id": {
+                    "description": "关系ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamCreateAccount": {
+            "type": "object",
+            "properties": {
+                "param_account_info": {
+                    "description": "账号信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamAccountInfo"
+                        }
+                    ]
+                },
+                "param_get_account_token": {
+                    "description": "账号 token",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamGetAccountToken"
+                        }
+                    ]
+                }
+            }
+        },
+        "reply.ParamCreateFileMsg": {
+            "type": "object",
+            "properties": {
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "file_id": {
+                    "description": "文件 ID",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "消息 ID",
+                    "type": "integer"
+                },
+                "msg_content": {
+                    "description": "消息内容，文件则为 url",
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamCreateGroup": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "relation_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamExistEmail": {
+            "type": "object",
+            "properties": {
+                "exist": {
+                    "description": "是否存在",
+                    "type": "boolean"
+                }
+            }
+        },
+        "reply.ParamFile": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "file_id": {
+                    "type": "integer"
+                },
+                "file_name": {
+                    "type": "string"
+                },
+                "file_size": {
+                    "type": "integer"
+                },
+                "file_type": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamFriendInfo": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "gender": {
+                    "description": "性别 [男，女，未知]",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "账号 ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "relation_id": {
+                    "description": "好友关系 ID，0表示没有好友关系",
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetAccountByID": {
+            "type": "object",
+            "properties": {
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "info": {
+                    "description": "账号信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamAccountInfo"
+                        }
+                    ]
+                },
+                "relation_id": {
+                    "description": "关系ID，如果不存在则为 0",
+                    "type": "integer"
+                },
+                "signature": {
+                    "description": "个性签名",
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamGetAccountToken": {
+            "type": "object",
+            "properties": {
+                "account_token": {
+                    "description": "账号 token",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/common.Token"
+                        }
+                    ]
+                }
+            }
+        },
+        "reply.ParamGetAccountsByName": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "description": "账号列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamFriendInfo"
+                    }
+                },
+                "total": {
+                    "description": "总数",
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetAccountsByUserID": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "description": "账号列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamAccountInfo"
+                    }
+                },
+                "total": {
+                    "description": "总数",
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetFriends": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SettingFriend"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetFriendsByName": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SettingFriend"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetGroupList": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SettingGroup"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetGroupMembers": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamGroupMemberInfo"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetGroupsByName": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SettingGroup"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetMsgsByContent": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamBriefMsgInfo"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetMsgsRelationIDAndTime": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamMsgInfoWithRly"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetNotifyByID": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamGroupNotify"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetPinMsgsByRelationID": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamMsgInfo"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetPins": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SettingPin"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetRelationFile": {
+            "type": "object",
+            "properties": {
+                "file_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamFile"
+                    }
+                }
+            }
+        },
+        "reply.ParamGetRlyMsgsInfoByMsgID": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamMsgInfo"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetShows": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Setting"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamGetTopMsgByRelationID": {
+            "type": "object",
+            "properties": {
+                "msg_info": {
+                    "description": "置顶消息详情",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamMsgInfo"
+                        }
+                    ]
+                }
+            }
+        },
+        "reply.ParamGroupMemberInfo": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "is_leader": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamGroupNotify": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer"
+                },
+                "create_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "msg_content": {
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "$ref": "#/definitions/model.MsgExtend"
+                },
+                "read_ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "relation_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamInviteAccount": {
+            "type": "object",
+            "properties": {
+                "invite_member": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "reply.ParamListApplications": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamApplicationInfo"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamLogin": {
+            "type": "object",
+            "properties": {
+                "param_user_info": {
+                    "description": "用户信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamUserInfo"
+                        }
+                    ]
+                },
+                "token": {
+                    "description": "用户令牌",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/common.Token"
+                        }
+                    ]
+                }
+            }
+        },
+        "reply.ParamMsgInfo": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "账号 ID，发送者的 ID",
+                    "type": "integer"
+                },
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "file_id": {
+                    "description": "文件 ID，当消息类型为 file 时 \u003e 0",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "消息 ID",
+                    "type": "integer"
+                },
+                "is_pin": {
+                    "description": "是否 pin",
+                    "type": "boolean"
+                },
+                "is_revoke": {
+                    "description": "是否撤回",
+                    "type": "boolean"
+                },
+                "is_top": {
+                    "description": "是否置顶",
+                    "type": "boolean"
+                },
+                "msg_content": {
+                    "description": "消息内容 文件则为 url，文本则为文本内容，由拓展信息进行补充",
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "description": "消息扩展信息，可能为 null",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.MsgExtend"
+                        }
+                    ]
+                },
+                "msg_type": {
+                    "description": "消息类型 [text, file]",
+                    "type": "string"
+                },
+                "notify_type": {
+                    "description": "通知类型 [system,common]",
+                    "type": "string"
+                },
+                "pin_time": {
+                    "description": "pin 时间",
+                    "type": "string"
+                },
+                "read_ids": {
+                    "description": "已读的账号ID，当请求者为发送者时为空",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer"
+                },
+                "reply_count": {
+                    "description": "回复数",
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamMsgInfoWithRly": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "账号 ID，发送者的 ID",
+                    "type": "integer"
+                },
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "file_id": {
+                    "description": "文件 ID，当消息类型为 file 时 \u003e 0",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "消息 ID",
+                    "type": "integer"
+                },
+                "is_pin": {
+                    "description": "是否 pin",
+                    "type": "boolean"
+                },
+                "is_revoke": {
+                    "description": "是否撤回",
+                    "type": "boolean"
+                },
+                "is_top": {
+                    "description": "是否置顶",
+                    "type": "boolean"
+                },
+                "msg_content": {
+                    "description": "消息内容 文件则为 url，文本则为文本内容，由拓展信息进行补充",
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "description": "消息扩展信息，可能为 null",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.MsgExtend"
+                        }
+                    ]
+                },
+                "msg_type": {
+                    "description": "消息类型 [text, file]",
+                    "type": "string"
+                },
+                "notify_type": {
+                    "description": "通知类型 [system,common]",
+                    "type": "string"
+                },
+                "pin_time": {
+                    "description": "pin 时间",
+                    "type": "string"
+                },
+                "read_ids": {
+                    "description": "已读的账号ID，当请求者为发送者时为空",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer"
+                },
+                "reply_count": {
+                    "description": "回复数",
+                    "type": "integer"
+                },
+                "rly_msg": {
+                    "description": "回复消息详情，可能为 nil",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamRlyMsg"
+                        }
+                    ]
+                }
+            }
+        },
+        "reply.ParamMsgInfoWithRlyAndHasRead": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "description": "账号 ID，发送者的 ID",
+                    "type": "integer"
+                },
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "file_id": {
+                    "description": "文件 ID，当消息类型为 file 时 \u003e 0",
+                    "type": "integer"
+                },
+                "has_read": {
+                    "description": "是否已读",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "消息 ID",
+                    "type": "integer"
+                },
+                "is_pin": {
+                    "description": "是否 pin",
+                    "type": "boolean"
+                },
+                "is_revoke": {
+                    "description": "是否撤回",
+                    "type": "boolean"
+                },
+                "is_top": {
+                    "description": "是否置顶",
+                    "type": "boolean"
+                },
+                "msg_content": {
+                    "description": "消息内容 文件则为 url，文本则为文本内容，由拓展信息进行补充",
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "description": "消息扩展信息，可能为 null",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.MsgExtend"
+                        }
+                    ]
+                },
+                "msg_type": {
+                    "description": "消息类型 [text, file]",
+                    "type": "string"
+                },
+                "notify_type": {
+                    "description": "通知类型 [system,common]",
+                    "type": "string"
+                },
+                "pin_time": {
+                    "description": "pin 时间",
+                    "type": "string"
+                },
+                "read_ids": {
+                    "description": "已读的账号ID，当请求者为发送者时为空",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer"
+                },
+                "reply_count": {
+                    "description": "回复数",
+                    "type": "integer"
+                },
+                "rly_msg": {
+                    "description": "回复消息详情，可能为 nil",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamRlyMsg"
+                        }
+                    ]
+                }
+            }
+        },
+        "reply.ParamOfferMsgsByAccountIDAndTime": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/reply.ParamMsgInfoWithRlyAndHasRead"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reply.ParamPublishFile": {
+            "type": "object",
+            "properties": {
+                "create_at": {
+                    "type": "string"
+                },
+                "file_size": {
+                    "type": "integer"
+                },
+                "file_type": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamRegister": {
+            "type": "object",
+            "properties": {
+                "param_user_info": {
+                    "description": "用户信息",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/reply.ParamUserInfo"
+                        }
+                    ]
+                },
+                "token": {
+                    "description": "用户令牌",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/common.Token"
+                        }
+                    ]
+                }
+            }
+        },
+        "reply.ParamRlyMsg": {
+            "type": "object",
+            "properties": {
+                "is_revoked": {
+                    "description": "是否撤回",
+                    "type": "boolean"
+                },
+                "msg_content": {
+                    "description": "消息内容",
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "description": "消息扩展信息(被@的信息)，可能为 null",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/model.MsgExtend"
+                        }
+                    ]
+                },
+                "msg_id": {
+                    "description": "回复消息 ID",
+                    "type": "integer"
+                },
+                "msg_type": {
+                    "description": "消息类型[text,file]",
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamUpdateGroup": {
+            "type": "object",
+            "required": [
+                "avatar",
+                "description",
+                "name"
+            ],
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamUploadAvatar": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "reply.ParamUserInfo": {
+            "type": "object",
+            "properties": {
+                "create_at": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "邮箱",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "user id",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamAcceptApplication": {
+            "type": "object",
+            "required": [
+                "account_id"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "申请者的 ID",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "request.ParamCreateAccount": {
+            "type": "object",
+            "required": [
+                "gender",
+                "name",
+                "signature"
+            ],
+            "properties": {
+                "gender": {
+                    "description": "性别",
+                    "type": "string",
+                    "enum": [
+                        "男",
+                        "女",
+                        "未知"
+                    ]
+                },
+                "name": {
+                    "description": "账户名（唯一）",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                },
+                "signature": {
+                    "description": "签名",
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 0
+                }
+            }
+        },
+        "request.ParamCreateApplication": {
+            "type": "object",
+            "required": [
+                "account_id",
+                "application_msg"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "被申请者的 ID",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "application_msg": {
+                    "description": "申请信息",
+                    "type": "string",
+                    "maxLength": 200
+                }
+            }
+        },
+        "request.ParamCreateGroup": {
+            "type": "object",
+            "required": [
+                "description",
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "description": "群描述",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "群名称",
+                    "type": "string"
+                }
+            }
+        },
+        "request.ParamCreateNotify": {
+            "type": "object",
+            "required": [
+                "msg_content",
+                "relation_id"
+            ],
+            "properties": {
+                "msg_content": {
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "$ref": "#/definitions/model.MsgExtend"
+                },
+                "relation_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamDeleteApplication": {
+            "type": "object",
+            "required": [
+                "account_id"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "被申请者的 ID",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "request.ParamDeleteFile": {
+            "type": "object",
+            "required": [
+                "file_id"
+            ],
+            "properties": {
+                "file_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamDeleteFriend": {
+            "type": "object",
+            "required": [
+                "relation_id"
+            ],
+            "properties": {
+                "relation_id": {
+                    "description": "要删除的关系的 ID",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "request.ParamDissolveGroup": {
+            "type": "object",
+            "required": [
+                "relation_id"
+            ],
+            "properties": {
+                "relation_id": {
+                    "description": "要解散的 relationID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamGetFileDetailsByID": {
+            "type": "object",
+            "required": [
+                "file_id"
+            ],
+            "properties": {
+                "file_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamGetFriendsByName": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "description": "要查询的名称",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "page": {
+                    "description": "第几页",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页的大小",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamGetGroupMembers": {
+            "type": "object",
+            "required": [
+                "relation_id"
+            ],
+            "properties": {
+                "page": {
+                    "description": "第几页",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页的大小",
+                    "type": "integer"
+                },
+                "relation_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamGetGroupsByName": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "page": {
+                    "description": "第几页",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页的大小",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamGetRelationFile": {
+            "type": "object",
+            "required": [
+                "relation_id"
+            ],
+            "properties": {
+                "relation_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamInviteAccount": {
+            "type": "object",
+            "required": [
+                "account_id",
+                "relation_id"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "要邀请的群成员",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "relation_id": {
+                    "description": "群聊 ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamLogin": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "description": "邮箱",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "password": {
+                    "description": "验证码",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 6
+                }
+            }
+        },
+        "request.ParamQuitGroup": {
+            "type": "object",
+            "required": [
+                "relation_id"
+            ],
+            "properties": {
+                "relation_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamRefuseApplication": {
+            "type": "object",
+            "required": [
+                "account_id",
+                "refuse_msg"
+            ],
+            "properties": {
+                "account_id": {
+                    "description": "申请者的 ID",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "refuse_msg": {
+                    "description": "拒绝信息",
+                    "type": "string",
+                    "maxLength": 200
+                }
+            }
+        },
+        "request.ParamRegister": {
+            "type": "object",
+            "required": [
+                "code",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "code": {
+                    "description": "验证码",
+                    "type": "string",
+                    "maxLength": 6,
+                    "minLength": 6
+                },
+                "email": {
+                    "description": "邮箱（required 要求该字段必须有值）",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码（该字段是必须的，并且长度介于6——50之间）",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 6
+                }
+            }
+        },
+        "request.ParamSendEmail": {
+            "type": "object",
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "description": "邮箱",
+                    "type": "string",
+                    "maxLength": 50
+                }
+            }
+        },
+        "request.ParamTransferGroup": {
+            "type": "object",
+            "required": [
+                "relation_id",
+                "to_account_id"
+            ],
+            "properties": {
+                "relation_id": {
+                    "type": "integer"
+                },
+                "to_account_id": {
+                    "description": "群要转让给的账户ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamUpdateAccount": {
+            "type": "object",
+            "required": [
+                "gender",
+                "name",
+                "signature"
+            ],
+            "properties": {
+                "gender": {
+                    "description": "性别",
+                    "type": "string",
+                    "enum": [
+                        "男",
+                        "女",
+                        "未知"
+                    ]
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                },
+                "signature": {
+                    "description": "个性签名",
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 0
+                }
+            }
+        },
+        "request.ParamUpdateGroup": {
+            "type": "object"
+        },
+        "request.ParamUpdateNickName": {
+            "type": "object",
+            "required": [
+                "nick_name",
+                "relation_id"
+            ],
+            "properties": {
+                "nick_name": {
+                    "description": "昵称",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "request.ParamUpdateNotify": {
+            "type": "object",
+            "required": [
+                "id",
+                "msg_content",
+                "relation_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "群通知 ID",
+                    "type": "integer"
+                },
+                "msg_content": {
+                    "type": "string"
+                },
+                "msg_extend": {
+                    "$ref": "#/definitions/model.MsgExtend"
+                },
+                "relation_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamUpdateSettingDisturb": {
+            "type": "object",
+            "required": [
+                "is_not_disturb",
+                "relation_id"
+            ],
+            "properties": {
+                "is_not_disturb": {
+                    "description": "是否免打扰",
+                    "type": "boolean"
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "request.ParamUpdateSettingPin": {
+            "type": "object",
+            "required": [
+                "is_pin",
+                "relation_id"
+            ],
+            "properties": {
+                "is_pin": {
+                    "description": "是否 pin（置顶）",
+                    "type": "boolean"
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "request.ParamUpdateSettingShow": {
+            "type": "object",
+            "required": [
+                "is_show",
+                "relation_id"
+            ],
+            "properties": {
+                "is_show": {
+                    "description": "是否展示",
+                    "type": "boolean"
+                },
+                "relation_id": {
+                    "description": "关系 ID",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "request.ParamUpdateUserEmail": {
+            "type": "object",
+            "required": [
+                "code",
+                "email"
+            ],
+            "properties": {
+                "code": {
+                    "description": "验证码",
+                    "type": "string",
+                    "maxLength": 6,
+                    "minLength": 6
+                },
+                "email": {
+                    "description": "邮箱",
+                    "type": "string",
+                    "maxLength": 50
+                }
+            }
+        },
+        "request.ParamUpdateUserPassword": {
+            "type": "object",
+            "required": [
+                "code",
+                "newPassword"
+            ],
+            "properties": {
+                "code": {
+                    "description": "验证码",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 6
+                },
+                "newPassword": {
+                    "description": "新的密码",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 6
+                }
+            }
+        },
+        "request.ParamUploadAccountAvatar": {
+            "type": "object"
+        }
+    }
+}

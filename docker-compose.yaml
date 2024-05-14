@@ -1,0 +1,36 @@
+version: "3.8" # Docker Compose 文件的版本
+volumes: # 定义卷
+  chat_pgsql_zr_data: # Postgres 数据库卷
+  chat_redis_data:
+  chat_app: # 应用程序数据卷
+
+services: # 定义服务
+  postgres: # Postgres 服务
+    image: chenxinaz/zhparser # 镜像
+    container_name: pgsql_zr # 容器名
+    privileged: true # 启动特权模式
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    ports:
+      - "5432:5432"
+    environment:
+      ALLOW_IP_RANGE: 0.0.0.0/0
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: chatroom
+    volumes:
+      - chat_pgsql_zr_data:/var/lib/postgresql/data # 挂载 Postgresql 数据卷到容器的数据目录
+      - /app/postgresql/postgresql.conf:/etc/postgresql/postgresql.conf # 挂载 Postgresql 配置文件到容器
+  redis: # redis 服务
+    image:  redis:7.2.2
+    container_name: redis
+    privileged: true
+    ports:
+      - "6379:6379"
+    volumes:
+      - /app/redis/redis.conf:/etc/redis/redis.conf
+      - /app/redis/data:/redis/data
+    entrypoint: ["redis-server","/etc/redis/redis.conf"] # 指定入口点命令及配置文件位置
+  app: # 应用程序服务
+    image:
+
+

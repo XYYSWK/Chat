@@ -1,0 +1,2836 @@
+definitions:
+  common.State:
+    properties:
+      code:
+        description: 状态码，0：成功；否则失败
+        type: integer
+      data:
+        description: 数据，失败时返回空
+      msg:
+        description: 状态的具体描述
+        type: string
+    type: object
+  common.Token:
+    properties:
+      expire_at:
+        description: token 过期时间
+        type: string
+      token:
+        description: token
+        type: string
+    type: object
+  model.MsgExtend:
+    properties:
+      remind:
+        description: '@ 的描述信息'
+        items:
+          $ref: '#/definitions/model.Remind'
+        type: array
+    type: object
+  model.Remind:
+    properties:
+      account_id:
+        description: 被 @ 的账号 ID
+        minimum: 1
+        type: integer
+      idx:
+        description: 第几个 @
+        minimum: 1
+        type: integer
+    required:
+    - account_id
+    - idx
+    type: object
+  model.Setting:
+    properties:
+      friend_info:
+        allOf:
+        - $ref: '#/definitions/model.SettingFriendInfo'
+        description: 好友信息
+      group_info:
+        allOf:
+        - $ref: '#/definitions/model.SettingGroupInfo'
+        description: 群组信息
+      is_not_disturb:
+        description: 是否免打扰
+        type: boolean
+      is_pin:
+        description: 是否 pin
+        type: boolean
+      is_show:
+        description: 是否显示
+        type: boolean
+      last_show:
+        description: 最后显示时间
+        type: string
+      nick_name:
+        description: 昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）
+        type: string
+      pin_time:
+        description: pin 时间
+        type: string
+      relation_id:
+        description: 关系 ID
+        type: integer
+      relation_type:
+        description: 关系类型['group','friend']
+        type: string
+    type: object
+  model.SettingFriend:
+    properties:
+      friend_info:
+        allOf:
+        - $ref: '#/definitions/model.SettingFriendInfo'
+        description: 好友信息
+      is_not_disturb:
+        description: 是否免打扰
+        type: boolean
+      is_pin:
+        description: 是否 pin
+        type: boolean
+      is_show:
+        description: 是否显示
+        type: boolean
+      last_show:
+        description: 最后显示时间
+        type: string
+      nick_name:
+        description: 昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）
+        type: string
+      pin_time:
+        description: pin 时间
+        type: string
+      relation_id:
+        description: 关系 ID
+        type: integer
+      relation_type:
+        description: 关系类型['group','friend']
+        type: string
+    type: object
+  model.SettingFriendInfo:
+    properties:
+      account_id:
+        description: 好友 ID
+        type: integer
+      avatar:
+        description: 好友头像
+        type: string
+      name:
+        description: 好友昵称
+        type: string
+    type: object
+  model.SettingGroup:
+    properties:
+      group_info:
+        allOf:
+        - $ref: '#/definitions/model.SettingGroupInfo'
+        description: 群组信息
+      is_not_disturb:
+        description: 是否免打扰
+        type: boolean
+      is_pin:
+        description: 是否 pin
+        type: boolean
+      is_show:
+        description: 是否显示
+        type: boolean
+      last_show:
+        description: 最后显示时间
+        type: string
+      nick_name:
+        description: 昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）
+        type: string
+      pin_time:
+        description: pin 时间
+        type: string
+      relation_id:
+        description: 关系 ID
+        type: integer
+      relation_type:
+        description: 关系类型['group','friend']
+        type: string
+    type: object
+  model.SettingGroupInfo:
+    properties:
+      avatar:
+        description: 群组头像
+        type: string
+      description:
+        description: 群组的描述
+        type: string
+      name:
+        description: 群组名称
+        type: string
+      relation_id:
+        description: 群组 ID
+        type: integer
+    type: object
+  model.SettingPin:
+    properties:
+      friend_info:
+        allOf:
+        - $ref: '#/definitions/model.SettingFriendInfo'
+        description: 好友信息
+      group_info:
+        allOf:
+        - $ref: '#/definitions/model.SettingGroupInfo'
+        description: 群组信息
+      nick_name:
+        description: 昵称（群组时：账号在群中的昵称，好友时：给好友备注的昵称，空表示未设置）
+        type: string
+      pin_time:
+        description: pin 时间
+        type: string
+      relation_id:
+        description: 关系 ID
+        type: integer
+      relation_type:
+        description: 关系类型['group','friend']
+        type: string
+    type: object
+  reply.ParamAccountInfo:
+    properties:
+      avatar:
+        description: 头像
+        type: string
+      gender:
+        description: 性别 [男，女，未知]
+        type: string
+      id:
+        description: 账号 ID
+        type: integer
+      name:
+        description: 昵称
+        type: string
+    type: object
+  reply.ParamApplicationInfo:
+    properties:
+      account_id_1:
+        description: 申请者账号 ID
+        type: integer
+      account_id_2:
+        description: 被申请者账号 ID
+        type: integer
+      apply_msg:
+        description: 申请信息
+        type: string
+      avatar:
+        description: 对方账号的头像
+        type: string
+      create_at:
+        description: 创建时间
+        type: string
+      name:
+        description: 对方账号的名字
+        type: string
+      refuse:
+        description: 拒绝信息
+        type: string
+      status:
+        description: 状态 [已申请，已拒绝，已同意]
+        type: string
+      update_at:
+        description: 更新时间
+        type: string
+    type: object
+  reply.ParamBriefMsgInfo:
+    properties:
+      account_id:
+        description: 账号ID 发送者ID
+        type: integer
+      create_at:
+        description: 创建时间
+        type: string
+      file_id:
+        description: 文件ID 当消息类型为file时>0
+        type: integer
+      id:
+        description: 消息ID
+        type: integer
+      msg_content:
+        description: 消息内容 文件则为url，文本则为文本内容，由拓展信息进行补充
+        type: string
+      msg_extend:
+        allOf:
+        - $ref: '#/definitions/model.MsgExtend'
+        description: 消息扩展信息 可能为null
+      msg_type:
+        description: 消息类型 [text,file]
+        type: string
+      notify_type:
+        description: 通知类型 [system,common]
+        type: string
+      relation_id:
+        description: 关系ID
+        type: integer
+    type: object
+  reply.ParamCreateAccount:
+    properties:
+      param_account_info:
+        allOf:
+        - $ref: '#/definitions/reply.ParamAccountInfo'
+        description: 账号信息
+      param_get_account_token:
+        allOf:
+        - $ref: '#/definitions/reply.ParamGetAccountToken'
+        description: 账号 token
+    type: object
+  reply.ParamCreateFileMsg:
+    properties:
+      create_at:
+        description: 创建时间
+        type: string
+      file_id:
+        description: 文件 ID
+        type: integer
+      id:
+        description: 消息 ID
+        type: integer
+      msg_content:
+        description: 消息内容，文件则为 url
+        type: string
+    type: object
+  reply.ParamCreateGroup:
+    properties:
+      account_id:
+        type: integer
+      avatar:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      relation_id:
+        type: integer
+    type: object
+  reply.ParamExistEmail:
+    properties:
+      exist:
+        description: 是否存在
+        type: boolean
+    type: object
+  reply.ParamFile:
+    properties:
+      account_id:
+        type: integer
+      create_at:
+        type: string
+      file_id:
+        type: integer
+      file_name:
+        type: string
+      file_size:
+        type: integer
+      file_type:
+        type: string
+      url:
+        type: string
+    type: object
+  reply.ParamFriendInfo:
+    properties:
+      avatar:
+        description: 头像
+        type: string
+      gender:
+        description: 性别 [男，女，未知]
+        type: string
+      id:
+        description: 账号 ID
+        type: integer
+      name:
+        description: 昵称
+        type: string
+      relation_id:
+        description: 好友关系 ID，0表示没有好友关系
+        type: integer
+    type: object
+  reply.ParamGetAccountByID:
+    properties:
+      create_at:
+        description: 创建时间
+        type: string
+      info:
+        allOf:
+        - $ref: '#/definitions/reply.ParamAccountInfo'
+        description: 账号信息
+      relation_id:
+        description: 关系ID，如果不存在则为 0
+        type: integer
+      signature:
+        description: 个性签名
+        type: string
+    type: object
+  reply.ParamGetAccountToken:
+    properties:
+      account_token:
+        allOf:
+        - $ref: '#/definitions/common.Token'
+        description: 账号 token
+    type: object
+  reply.ParamGetAccountsByName:
+    properties:
+      list:
+        description: 账号列表
+        items:
+          $ref: '#/definitions/reply.ParamFriendInfo'
+        type: array
+      total:
+        description: 总数
+        type: integer
+    type: object
+  reply.ParamGetAccountsByUserID:
+    properties:
+      list:
+        description: 账号列表
+        items:
+          $ref: '#/definitions/reply.ParamAccountInfo'
+        type: array
+      total:
+        description: 总数
+        type: integer
+    type: object
+  reply.ParamGetFriends:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/model.SettingFriend'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetFriendsByName:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/model.SettingFriend'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetGroupList:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/model.SettingGroup'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetGroupMembers:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamGroupMemberInfo'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetGroupsByName:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/model.SettingGroup'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetMsgsByContent:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamBriefMsgInfo'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetMsgsRelationIDAndTime:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamMsgInfoWithRly'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetNotifyByID:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamGroupNotify'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetPinMsgsByRelationID:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamMsgInfo'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetPins:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/model.SettingPin'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetRelationFile:
+    properties:
+      file_list:
+        items:
+          $ref: '#/definitions/reply.ParamFile'
+        type: array
+    type: object
+  reply.ParamGetRlyMsgsInfoByMsgID:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamMsgInfo'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetShows:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/model.Setting'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamGetTopMsgByRelationID:
+    properties:
+      msg_info:
+        allOf:
+        - $ref: '#/definitions/reply.ParamMsgInfo'
+        description: 置顶消息详情
+    type: object
+  reply.ParamGroupMemberInfo:
+    properties:
+      account_id:
+        type: integer
+      avatar:
+        type: string
+      is_leader:
+        type: boolean
+      name:
+        type: string
+      nickname:
+        type: string
+    type: object
+  reply.ParamGroupNotify:
+    properties:
+      account_id:
+        type: integer
+      create_at:
+        type: string
+      id:
+        type: integer
+      msg_content:
+        type: string
+      msg_extend:
+        $ref: '#/definitions/model.MsgExtend'
+      read_ids:
+        items:
+          type: integer
+        type: array
+      relation_id:
+        type: integer
+    type: object
+  reply.ParamInviteAccount:
+    properties:
+      invite_member:
+        items:
+          type: integer
+        type: array
+    type: object
+  reply.ParamListApplications:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamApplicationInfo'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamLogin:
+    properties:
+      param_user_info:
+        allOf:
+        - $ref: '#/definitions/reply.ParamUserInfo'
+        description: 用户信息
+      token:
+        allOf:
+        - $ref: '#/definitions/common.Token'
+        description: 用户令牌
+    type: object
+  reply.ParamMsgInfo:
+    properties:
+      account_id:
+        description: 账号 ID，发送者的 ID
+        type: integer
+      create_at:
+        description: 创建时间
+        type: string
+      file_id:
+        description: 文件 ID，当消息类型为 file 时 > 0
+        type: integer
+      id:
+        description: 消息 ID
+        type: integer
+      is_pin:
+        description: 是否 pin
+        type: boolean
+      is_revoke:
+        description: 是否撤回
+        type: boolean
+      is_top:
+        description: 是否置顶
+        type: boolean
+      msg_content:
+        description: 消息内容 文件则为 url，文本则为文本内容，由拓展信息进行补充
+        type: string
+      msg_extend:
+        allOf:
+        - $ref: '#/definitions/model.MsgExtend'
+        description: 消息扩展信息，可能为 null
+      msg_type:
+        description: 消息类型 [text, file]
+        type: string
+      notify_type:
+        description: 通知类型 [system,common]
+        type: string
+      pin_time:
+        description: pin 时间
+        type: string
+      read_ids:
+        description: 已读的账号ID，当请求者为发送者时为空
+        items:
+          type: integer
+        type: array
+      relation_id:
+        description: 关系 ID
+        type: integer
+      reply_count:
+        description: 回复数
+        type: integer
+    type: object
+  reply.ParamMsgInfoWithRly:
+    properties:
+      account_id:
+        description: 账号 ID，发送者的 ID
+        type: integer
+      create_at:
+        description: 创建时间
+        type: string
+      file_id:
+        description: 文件 ID，当消息类型为 file 时 > 0
+        type: integer
+      id:
+        description: 消息 ID
+        type: integer
+      is_pin:
+        description: 是否 pin
+        type: boolean
+      is_revoke:
+        description: 是否撤回
+        type: boolean
+      is_top:
+        description: 是否置顶
+        type: boolean
+      msg_content:
+        description: 消息内容 文件则为 url，文本则为文本内容，由拓展信息进行补充
+        type: string
+      msg_extend:
+        allOf:
+        - $ref: '#/definitions/model.MsgExtend'
+        description: 消息扩展信息，可能为 null
+      msg_type:
+        description: 消息类型 [text, file]
+        type: string
+      notify_type:
+        description: 通知类型 [system,common]
+        type: string
+      pin_time:
+        description: pin 时间
+        type: string
+      read_ids:
+        description: 已读的账号ID，当请求者为发送者时为空
+        items:
+          type: integer
+        type: array
+      relation_id:
+        description: 关系 ID
+        type: integer
+      reply_count:
+        description: 回复数
+        type: integer
+      rly_msg:
+        allOf:
+        - $ref: '#/definitions/reply.ParamRlyMsg'
+        description: 回复消息详情，可能为 nil
+    type: object
+  reply.ParamMsgInfoWithRlyAndHasRead:
+    properties:
+      account_id:
+        description: 账号 ID，发送者的 ID
+        type: integer
+      create_at:
+        description: 创建时间
+        type: string
+      file_id:
+        description: 文件 ID，当消息类型为 file 时 > 0
+        type: integer
+      has_read:
+        description: 是否已读
+        type: boolean
+      id:
+        description: 消息 ID
+        type: integer
+      is_pin:
+        description: 是否 pin
+        type: boolean
+      is_revoke:
+        description: 是否撤回
+        type: boolean
+      is_top:
+        description: 是否置顶
+        type: boolean
+      msg_content:
+        description: 消息内容 文件则为 url，文本则为文本内容，由拓展信息进行补充
+        type: string
+      msg_extend:
+        allOf:
+        - $ref: '#/definitions/model.MsgExtend'
+        description: 消息扩展信息，可能为 null
+      msg_type:
+        description: 消息类型 [text, file]
+        type: string
+      notify_type:
+        description: 通知类型 [system,common]
+        type: string
+      pin_time:
+        description: pin 时间
+        type: string
+      read_ids:
+        description: 已读的账号ID，当请求者为发送者时为空
+        items:
+          type: integer
+        type: array
+      relation_id:
+        description: 关系 ID
+        type: integer
+      reply_count:
+        description: 回复数
+        type: integer
+      rly_msg:
+        allOf:
+        - $ref: '#/definitions/reply.ParamRlyMsg'
+        description: 回复消息详情，可能为 nil
+    type: object
+  reply.ParamOfferMsgsByAccountIDAndTime:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/reply.ParamMsgInfoWithRlyAndHasRead'
+        type: array
+      total:
+        type: integer
+    type: object
+  reply.ParamPublishFile:
+    properties:
+      create_at:
+        type: string
+      file_size:
+        type: integer
+      file_type:
+        type: string
+      id:
+        type: integer
+      url:
+        type: string
+    type: object
+  reply.ParamRegister:
+    properties:
+      param_user_info:
+        allOf:
+        - $ref: '#/definitions/reply.ParamUserInfo'
+        description: 用户信息
+      token:
+        allOf:
+        - $ref: '#/definitions/common.Token'
+        description: 用户令牌
+    type: object
+  reply.ParamRlyMsg:
+    properties:
+      is_revoked:
+        description: 是否撤回
+        type: boolean
+      msg_content:
+        description: 消息内容
+        type: string
+      msg_extend:
+        allOf:
+        - $ref: '#/definitions/model.MsgExtend'
+        description: 消息扩展信息(被@的信息)，可能为 null
+      msg_id:
+        description: 回复消息 ID
+        type: integer
+      msg_type:
+        description: 消息类型[text,file]
+        type: string
+    type: object
+  reply.ParamUpdateGroup:
+    properties:
+      avatar:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+    required:
+    - avatar
+    - description
+    - name
+    type: object
+  reply.ParamUploadAvatar:
+    properties:
+      url:
+        type: string
+    type: object
+  reply.ParamUserInfo:
+    properties:
+      create_at:
+        description: 创建时间
+        type: string
+      email:
+        description: 邮箱
+        type: string
+      id:
+        description: user id
+        type: integer
+    type: object
+  request.ParamAcceptApplication:
+    properties:
+      account_id:
+        description: 申请者的 ID
+        minimum: 1
+        type: integer
+    required:
+    - account_id
+    type: object
+  request.ParamCreateAccount:
+    properties:
+      gender:
+        description: 性别
+        enum:
+        - 男
+        - 女
+        - 未知
+        type: string
+      name:
+        description: 账户名（唯一）
+        maxLength: 20
+        minLength: 1
+        type: string
+      signature:
+        description: 签名
+        maxLength: 100
+        minLength: 0
+        type: string
+    required:
+    - gender
+    - name
+    - signature
+    type: object
+  request.ParamCreateApplication:
+    properties:
+      account_id:
+        description: 被申请者的 ID
+        minimum: 1
+        type: integer
+      application_msg:
+        description: 申请信息
+        maxLength: 200
+        type: string
+    required:
+    - account_id
+    - application_msg
+    type: object
+  request.ParamCreateGroup:
+    properties:
+      description:
+        description: 群描述
+        type: string
+      name:
+        description: 群名称
+        type: string
+    required:
+    - description
+    - name
+    type: object
+  request.ParamCreateNotify:
+    properties:
+      msg_content:
+        type: string
+      msg_extend:
+        $ref: '#/definitions/model.MsgExtend'
+      relation_id:
+        type: integer
+    required:
+    - msg_content
+    - relation_id
+    type: object
+  request.ParamDeleteApplication:
+    properties:
+      account_id:
+        description: 被申请者的 ID
+        minimum: 1
+        type: integer
+    required:
+    - account_id
+    type: object
+  request.ParamDeleteFile:
+    properties:
+      file_id:
+        type: integer
+    required:
+    - file_id
+    type: object
+  request.ParamDeleteFriend:
+    properties:
+      relation_id:
+        description: 要删除的关系的 ID
+        minimum: 1
+        type: integer
+    required:
+    - relation_id
+    type: object
+  request.ParamDissolveGroup:
+    properties:
+      relation_id:
+        description: 要解散的 relationID
+        type: integer
+    required:
+    - relation_id
+    type: object
+  request.ParamGetFileDetailsByID:
+    properties:
+      file_id:
+        type: integer
+    required:
+    - file_id
+    type: object
+  request.ParamGetFriendsByName:
+    properties:
+      name:
+        description: 要查询的名称
+        minLength: 1
+        type: string
+      page:
+        description: 第几页
+        type: integer
+      page_size:
+        description: 每页的大小
+        type: integer
+    required:
+    - name
+    type: object
+  request.ParamGetGroupMembers:
+    properties:
+      page:
+        description: 第几页
+        type: integer
+      page_size:
+        description: 每页的大小
+        type: integer
+      relation_id:
+        type: integer
+    required:
+    - relation_id
+    type: object
+  request.ParamGetGroupsByName:
+    properties:
+      name:
+        type: string
+      page:
+        description: 第几页
+        type: integer
+      page_size:
+        description: 每页的大小
+        type: integer
+    required:
+    - name
+    type: object
+  request.ParamGetRelationFile:
+    properties:
+      relation_id:
+        type: integer
+    required:
+    - relation_id
+    type: object
+  request.ParamInviteAccount:
+    properties:
+      account_id:
+        description: 要邀请的群成员
+        items:
+          type: integer
+        type: array
+      relation_id:
+        description: 群聊 ID
+        type: integer
+    required:
+    - account_id
+    - relation_id
+    type: object
+  request.ParamLogin:
+    properties:
+      email:
+        description: 邮箱
+        maxLength: 50
+        type: string
+      password:
+        description: 验证码
+        maxLength: 50
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  request.ParamQuitGroup:
+    properties:
+      relation_id:
+        type: integer
+    required:
+    - relation_id
+    type: object
+  request.ParamRefuseApplication:
+    properties:
+      account_id:
+        description: 申请者的 ID
+        minimum: 1
+        type: integer
+      refuse_msg:
+        description: 拒绝信息
+        maxLength: 200
+        type: string
+    required:
+    - account_id
+    - refuse_msg
+    type: object
+  request.ParamRegister:
+    properties:
+      code:
+        description: 验证码
+        maxLength: 6
+        minLength: 6
+        type: string
+      email:
+        description: 邮箱（required 要求该字段必须有值）
+        type: string
+      password:
+        description: 密码（该字段是必须的，并且长度介于6——50之间）
+        maxLength: 50
+        minLength: 6
+        type: string
+    required:
+    - code
+    - email
+    - password
+    type: object
+  request.ParamSendEmail:
+    properties:
+      email:
+        description: 邮箱
+        maxLength: 50
+        type: string
+    required:
+    - email
+    type: object
+  request.ParamTransferGroup:
+    properties:
+      relation_id:
+        type: integer
+      to_account_id:
+        description: 群要转让给的账户ID
+        type: integer
+    required:
+    - relation_id
+    - to_account_id
+    type: object
+  request.ParamUpdateAccount:
+    properties:
+      gender:
+        description: 性别
+        enum:
+        - 男
+        - 女
+        - 未知
+        type: string
+      name:
+        description: 名称
+        maxLength: 20
+        minLength: 1
+        type: string
+      signature:
+        description: 个性签名
+        maxLength: 100
+        minLength: 0
+        type: string
+    required:
+    - gender
+    - name
+    - signature
+    type: object
+  request.ParamUpdateGroup:
+    type: object
+  request.ParamUpdateNickName:
+    properties:
+      nick_name:
+        description: 昵称
+        minLength: 1
+        type: string
+      relation_id:
+        description: 关系 ID
+        minimum: 1
+        type: integer
+    required:
+    - nick_name
+    - relation_id
+    type: object
+  request.ParamUpdateNotify:
+    properties:
+      id:
+        description: 群通知 ID
+        type: integer
+      msg_content:
+        type: string
+      msg_extend:
+        $ref: '#/definitions/model.MsgExtend'
+      relation_id:
+        type: integer
+    required:
+    - id
+    - msg_content
+    - relation_id
+    type: object
+  request.ParamUpdateSettingDisturb:
+    properties:
+      is_not_disturb:
+        description: 是否免打扰
+        type: boolean
+      relation_id:
+        description: 关系 ID
+        minimum: 1
+        type: integer
+    required:
+    - is_not_disturb
+    - relation_id
+    type: object
+  request.ParamUpdateSettingPin:
+    properties:
+      is_pin:
+        description: 是否 pin（置顶）
+        type: boolean
+      relation_id:
+        description: 关系 ID
+        minimum: 1
+        type: integer
+    required:
+    - is_pin
+    - relation_id
+    type: object
+  request.ParamUpdateSettingShow:
+    properties:
+      is_show:
+        description: 是否展示
+        type: boolean
+      relation_id:
+        description: 关系 ID
+        minimum: 1
+        type: integer
+    required:
+    - is_show
+    - relation_id
+    type: object
+  request.ParamUpdateUserEmail:
+    properties:
+      code:
+        description: 验证码
+        maxLength: 6
+        minLength: 6
+        type: string
+      email:
+        description: 邮箱
+        maxLength: 50
+        type: string
+    required:
+    - code
+    - email
+    type: object
+  request.ParamUpdateUserPassword:
+    properties:
+      code:
+        description: 验证码
+        maxLength: 50
+        minLength: 6
+        type: string
+      newPassword:
+        description: 新的密码
+        maxLength: 50
+        minLength: 6
+        type: string
+    required:
+    - code
+    - newPassword
+    type: object
+  request.ParamUploadAccountAvatar:
+    type: object
+info:
+  contact: {}
+paths:
+  /api/account/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 创建账号信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2012:账户名已经存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamCreateAccount'
+              type: object
+      summary: 创建账号
+      tags:
+      - account
+  /api/account/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 账号 ID
+        in: query
+        minimum: 1
+        name: account_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 删除账号
+      tags:
+      - account
+  /api/account/info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账号令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 账号ID
+        in: query
+        minimum: 1
+        name: account_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2009:权限不足 2007:身份不存在 2008:身份验证失败 2010:账号不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetAccountByID'
+              type: object
+      summary: 根据ID查找账户
+      tags:
+      - account
+  /api/account/infos/account:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账号令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 账号信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更改账号信息
+      tags:
+      - account
+  /api/account/infos/name:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账号令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 搜索名称
+        in: query
+        maxLength: 20
+        minLength: 1
+        name: name
+        required: true
+        type: string
+      - description: 第几页
+        in: query
+        name: page
+        type: integer
+      - description: 每页的大小
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetAccountsByName'
+              type: object
+      summary: 根据昵称模糊查找账号
+      tags:
+      - account
+  /api/account/token:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 账号 ID
+        in: query
+        minimum: 1
+        name: account_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetAccountToken'
+              type: object
+      summary: 获取账号令牌
+      tags:
+      - account
+  /api/application/accept:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 需要接受的申请
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamAcceptApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 3002:申请不存在
+            3004:重复操作申请
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 被申请者接受好友申请
+      tags:
+      - application
+  /api/application/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 申请信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 3001:申请已经存在
+            3003:申请不合法 4001:关系已经存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 创建好友申请
+      tags:
+      - application
+  /api/application/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 需要删除的申请
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDeleteApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 2009:权限不足
+            3002:申请不存在 3003:申请不合法
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 申请者删除好友申请
+      tags:
+      - application
+  /api/application/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamListApplications'
+              type: object
+      summary: 账号查看和自身相关的好友申请（不论是申请者还是被申请者）
+      tags:
+      - application
+  /api/application/refuse:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 需要拒绝的申请
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamRefuseApplication'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 3002:申请不存在
+            3004:重复操作申请
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 被申请者拒绝好友申请
+      tags:
+      - application
+  /api/email/exist:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 邮箱
+        in: query
+        maxLength: 50
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                Data:
+                  $ref: '#/definitions/reply.ParamExistEmail'
+              type: object
+      summary: 是否已经注册过该 email
+      tags:
+      - email
+  /api/email/send:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: email
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSendEmail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2006:邮箱已经注册 2003:邮件发送过于频繁，请稍后再试
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 发送验证码(邮件)
+      tags:
+      - email
+  /api/file/avatar/account:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: 文件及账户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUploadAccountAvatar'
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 8001:存储失败
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamUploadAvatar'
+              type: object
+      summary: 更新账户头像
+      tags:
+      - file
+  /api/file/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDeleteFile'
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 8002:文件不存在 8003文件删除失败
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 删除文件
+      tags:
+      - file
+  /api/file/details:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件及账户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamGetFileDetailsByID'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamFile'
+              type: object
+      summary: 获取文件详情
+      tags:
+      - file
+  /api/file/getFiles:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 关系ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamGetRelationFile'
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 8001:存储失败
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetRelationFile'
+              type: object
+      summary: 获取关系文件列表
+      tags:
+      - file
+  /api/file/publish:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: formData
+        name: account_id
+        required: true
+        type: integer
+      - in: formData
+        name: relation_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 8001:存储失败
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamPublishFile'
+              type: object
+      summary: 上传文件
+      tags:
+      - file
+  /api/group/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamCreateGroup'
+              type: object
+      summary: 创建群
+      tags:
+      - group
+  /api/group/dissolve:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDissolveGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 解散群
+      tags:
+      - group
+  /api/group/invite:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamInviteAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamInviteAccount'
+              type: object
+      summary: 邀请成员入群
+      tags:
+      - group
+  /api/group/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetGroupList'
+              type: object
+      summary: 获取该账号所有的群聊信息列表
+      tags:
+      - group
+  /api/group/members:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamGetGroupMembers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetGroupMembers'
+              type: object
+      summary: 查看所有群成员
+      tags:
+      - group
+  /api/group/name:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamGetGroupsByName'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7003:非群员
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetGroupsByName'
+              type: object
+      summary: 通过群名模糊查找群聊
+      tags:
+      - group
+  /api/group/quit:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamQuitGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 退出群聊
+      tags:
+      - group
+  /api/group/transfer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamTransferGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 转让群
+      tags:
+      - group
+  /api/group/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamUpdateGroup'
+              type: object
+      summary: 更新群信息
+      tags:
+      - group
+  /api/message/file:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: 关系id
+        in: formData
+        name: relation_id
+        required: true
+        type: integer
+      - description: 回复消息id
+        in: formData
+        name: rly_msg_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamCreateFileMsg'
+              type: object
+      security:
+      - BasicAuth: []
+      summary: 发布文件类型的消息
+      tags:
+      - message
+  /api/message/info/top:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        minimum: 1
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 完整的消息详情,但不存在则为null
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetTopMsgByRelationID'
+              type: object
+      summary: 获取指定关系中的置顶消息，如果不存在则为 null
+      tags:
+      - message
+  /api/message/list/content:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: content
+        type: string
+      - description: 第几页
+        in: query
+        name: page
+        type: integer
+      - description: 每页的大小
+        in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 完整的消息详情，包含回复消息
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetMsgsByContent'
+              type: object
+      summary: 通过内容模糊查找指定或所有关系中的消息，按照时间先后顺序倒序排序，不会查询撤回的消息（指定关系 ID < 0 则查询所有关系中的消息）
+      tags:
+      - message
+  /api/message/list/offer:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 拉取消息的最晚时间戳（精确到秒）
+        in: query
+        minimum: 1
+        name: last_time
+        required: true
+        type: integer
+      - description: 第几页
+        in: query
+        name: page
+        type: integer
+      - description: 每页的大小
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 完整的消息详情，包含回复消息
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamOfferMsgsByAccountIDAndTime'
+              type: object
+      summary: 获取所有关系指定时间戳之后的信息，获取的消息按照发布时间先后排序，同时包含是否已读的标识
+      tags:
+      - message
+  /api/message/list/pin:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 第几页
+        in: query
+        name: page
+        type: integer
+      - description: 每页的大小
+        in: query
+        name: page_size
+        type: integer
+      - in: query
+        minimum: 1
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 完整的消息详情，包含回复消息
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetPinMsgsByRelationID'
+              type: object
+      summary: 获取指定关系的 pin 消息，按照pin时间倒序排序
+      tags:
+      - message
+  /api/message/list/reply:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        minimum: 1
+        name: msg_id
+        required: true
+        type: integer
+      - description: 第几页
+        in: query
+        name: page
+        type: integer
+      - description: 每页的大小
+        in: query
+        name: page_size
+        type: integer
+      - in: query
+        minimum: 1
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 完整的消息详情，包含回复消息
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetRlyMsgsInfoByMsgID'
+              type: object
+      summary: 获取指定消息的所有回复消息，按照回复时间先后排序
+      tags:
+      - message
+  /api/message/list/time:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 拉取消息最晚的时间戳（精确到秒）
+        in: query
+        minimum: 1
+        name: last_time
+        required: true
+        type: integer
+      - description: 第几页
+        in: query
+        name: page
+        type: integer
+      - description: 每页的大小
+        in: query
+        name: page_size
+        type: integer
+      - description: 关系 ID
+        in: query
+        minimum: 1
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 完整的消息详情，包含回复消息
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetMsgsRelationIDAndTime'
+              type: object
+      summary: 获取指定关系指定时间戳之前的信息，获取的消息按照发布时间先后排序
+      tags:
+      - message
+  /api/message/update/pin:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 消息 ID
+        in: query
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 是否 pin
+        in: query
+        name: is_pin
+        required: true
+        type: boolean
+      - description: 关系 ID
+        in: query
+        minimum: 1
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在
+            5001:消息不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更改消息的 pin 状态
+      tags:
+      - message
+  /api/message/update/revoke:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 消息 ID
+        in: query
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在
+            5001:消息不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 撤回消息
+      tags:
+      - message
+  /api/message/update/top:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 消息 ID
+        in: query
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 是否置顶
+        in: query
+        name: is_top
+        required: true
+        type: boolean
+      - description: 关系 ID
+        in: query
+        minimum: 1
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 2010:账号不存在
+            5001:消息不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更改消息的置顶状态
+      tags:
+      - message
+  /api/notify/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateNotify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7001:非群主
+            7003:非群成员
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGroupNotify'
+              type: object
+      summary: 创建群通知
+      tags:
+      - notify
+  /api/notify/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 群通知的 ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: 群 ID
+        in: query
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7001:非群主
+            7003:非群成员
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 获取群通知
+      tags:
+      - notify
+  /api/notify/get:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: relation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7003:非群成员
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetNotifyByID'
+              type: object
+      summary: 更具群ID获取群通知
+      tags:
+      - notify
+  /api/notify/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 请求信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateNotify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2009:权限不足 7001:非群主
+            7003:非群成员
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更新群通知
+      tags:
+      - notify
+  /api/setting/friend/delete:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 关系 ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDeleteFriend'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 删除好友关系（双向删除）
+      tags:
+      - setting
+  /api/setting/friend/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetFriends'
+              type: object
+      summary: 获取当前账户所有的好友
+      tags:
+      - setting
+  /api/setting/friend/name:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 关系 ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamGetFriendsByName'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetFriendsByName'
+              type: object
+      summary: 通过姓名模糊查询好友（好友姓名或昵称）
+      tags:
+      - setting
+  /api/setting/pins:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetPins'
+              type: object
+      summary: 获取当前账户所有pin的好友和群组列表
+      tags:
+      - setting
+  /api/setting/shows:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamGetShows'
+              type: object
+      summary: 获取当前账户首页显示的好友和群组列表
+      tags:
+      - setting
+  /api/setting/update/disturb:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 关系ID，免打扰状态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateSettingDisturb'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更新好友或群组的免打扰状态
+      tags:
+      - setting
+  /api/setting/update/nick_name:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 关系ID，备注或群昵称
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateNickName'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更改给好友的备注昵称或自己在群组中的昵称
+      tags:
+      - setting
+  /api/setting/update/pin:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 关系ID，pin状态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateSettingPin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更新好友或群组的pin（置顶）状态
+      tags:
+      - setting
+  /api/setting/update/show:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 账户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 关系ID，展示状态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateSettingShow'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2007:身份不存在 2008:身份验证失败 2010:账号不存在 4002:关系不存在
+          schema:
+            $ref: '#/definitions/common.State'
+      summary: 更新好友或群组的是否展示的状态
+      tags:
+      - setting
+  /api/user/deleteUser:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2001:用户不存在 2007:身份不存在 2008:身份验证失败
+          schema:
+            $ref: '#/definitions/common.State'
+      security:
+      - BasicAuth: []
+      summary: 删除用户
+      tags:
+      - user
+  /api/user/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户登录信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数错误 1003:系统错误 2001:用户不存在
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamLogin'
+              type: object
+      summary: 用户登录
+      tags:
+      - user
+  /api/user/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户注册信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamRegister'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2004:邮箱验证码校验失败 2006:邮箱已经注册
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.State'
+            - properties:
+                data:
+                  $ref: '#/definitions/reply.ParamRegister'
+              type: object
+      summary: 用户注册
+      tags:
+      - user
+  /api/user/update/email:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 新邮箱和验证码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateUserEmail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2001:用户不存在 2004:邮箱验证码校验失败 2005:邮箱相同 2006:邮箱已经注册
+            2007:身份不存在 2008:身份验证失败
+          schema:
+            $ref: '#/definitions/common.State'
+      security:
+      - BasicAuth: []
+      summary: 更新用户邮箱
+      tags:
+      - user
+  /api/user/update/pwd:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 验证码和新密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateUserPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 1001:参数有误 1003:系统错误 2001:用户不存在 2004:邮箱验证码校验失败 2007:身份不存在 2008:身份验证失败
+          schema:
+            $ref: '#/definitions/common.State'
+      security:
+      - BasicAuth: []
+      summary: 更新用户密码
+      tags:
+      - user
+swagger: "2.0"
