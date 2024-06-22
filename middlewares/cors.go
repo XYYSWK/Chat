@@ -29,7 +29,7 @@ func Cors() gin.HandlerFunc {
 		}
 
 		//处理跨域请求时的预检请求，确认服务端是否支持跨域请求，并返回相应的响应。
-		if method == "POTIONS" {
+		if method == "OPTIONS" {
 			ctx.JSON(http.StatusOK, "options ok")
 			return
 		}

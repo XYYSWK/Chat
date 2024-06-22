@@ -41,7 +41,7 @@ func LogBody() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		bodyBytes, _ := io.ReadAll(ctx.Request.Body)
 		_ = ctx.Request.Body.Close()                                //关闭原始请求主体的读取，以确保资源的正确释放
-		ctx.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // 创建一个新的可读取的请求主体，并将之前读取的 bodyBytes 作为内容，最后将其设置回 ctx.Request.Body。
+		ctx.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // 创建一个新地可读取的请求主体，并将之前读取的 bodyBytes 作为内容，最后将其设置回 ctx.Request.Body。
 		// 使用一个新的缓冲区来存储请求主体的内容，而不是直接读取原始的请求主体。这样我们就可以在不影响原始请求主体的情况下，对请求主体的内容进行处理和修改
 		ctx.Set("body", bodyBytes)
 		ctx.Next()
