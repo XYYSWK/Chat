@@ -76,7 +76,7 @@ func (notify) UpdateNotify(ctx *gin.Context) {
 func (notify) GetNotifyByID(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamGetNotifyByID)
-	if err := ctx.ShouldBindJSON(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
@@ -101,7 +101,7 @@ func (notify) GetNotifyByID(ctx *gin.Context) {
 func (notify) DeleteNotify(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamDeleteNotify)
-	if err := ctx.ShouldBindJSON(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}

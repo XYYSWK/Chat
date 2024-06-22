@@ -239,7 +239,7 @@ func (group) GetGroupsByName(ctx *gin.Context) {
 func (group) GetGroupMembers(ctx *gin.Context) {
 	rly := app.NewResponse(ctx)
 	params := new(request.ParamGetGroupMembers)
-	if err := ctx.ShouldBindJSON(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		rly.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}

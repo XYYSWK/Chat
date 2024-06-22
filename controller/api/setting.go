@@ -209,7 +209,7 @@ func (setting) DeleteFriend(ctx *gin.Context) {
 func (setting) GetFriendsByName(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamGetFriendsByName)
-	if err := ctx.ShouldBindJSON(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}

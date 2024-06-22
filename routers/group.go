@@ -19,7 +19,7 @@ func (group) Init(router *gin.RouterGroup) {
 		r.POST("invite", api.Apis.Group.InviteAccount)
 		r.GET("list", api.Apis.Group.GetGroupList)
 		r.POST("quit", api.Apis.Group.QuitGroup)
-		r.GET("name", api.Apis.Group.GetGroupsByName)
+		r.POST("name", api.Apis.Group.GetGroupsByName)
 		r.GET("members", api.Apis.Group.GetGroupMembers)
 	}
 }

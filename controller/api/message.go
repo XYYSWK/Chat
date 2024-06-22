@@ -61,7 +61,7 @@ func (message) CreateFileMsg(ctx *gin.Context) {
 func (message) GetMsgsByRelationIDAndTime(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamGetMsgsByRelationIDAndTime)
-	if err := ctx.ShouldBind(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
@@ -93,7 +93,7 @@ func (message) GetMsgsByRelationIDAndTime(ctx *gin.Context) {
 func (message) OfferMsgsByAccountIDAndTime(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamOfferMsgsByAccountIDAndTime)
-	if err := ctx.ShouldBind(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
@@ -199,7 +199,7 @@ func (message) RevokeMsg(ctx *gin.Context) {
 func (message) GetTopMsgByRelationID(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamGetTopMsgByRelationID)
-	if err := ctx.ShouldBindJSON(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
@@ -224,7 +224,7 @@ func (message) GetTopMsgByRelationID(ctx *gin.Context) {
 func (message) GetPinMsgsByRelationID(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamGetPinMsgsByRelationID)
-	if err := ctx.ShouldBindJSON(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
@@ -250,7 +250,7 @@ func (message) GetPinMsgsByRelationID(ctx *gin.Context) {
 func (message) GetRlyMsgsInfoByMsgID(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamGetRlyMsgsInfoByMsgID)
-	if err := ctx.ShouldBindJSON(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
@@ -276,7 +276,7 @@ func (message) GetRlyMsgsInfoByMsgID(ctx *gin.Context) {
 func (message) GetMsgsByContent(ctx *gin.Context) {
 	reply := app.NewResponse(ctx)
 	params := new(request.ParamGetMsgsByContent)
-	if err := ctx.ShouldBind(params); err != nil {
+	if err := ctx.ShouldBindQuery(params); err != nil {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
