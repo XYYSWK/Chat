@@ -6,7 +6,7 @@ import (
 	"Chat/model"
 	"Chat/model/chat/client"
 	"Chat/model/common"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	socketio "github.com/googollee/go-socket.io"
 )
 

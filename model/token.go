@@ -2,7 +2,7 @@ package model
 
 import (
 	"encoding/json"
-	"github.com/XYYSWK/Rutils/pkg/token"
+	"github.com/XYYSWK/Lutils/pkg/token"
 )
 
 type TokenType string

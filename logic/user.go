@@ -11,8 +11,8 @@ import (
 	"Chat/model/reply"
 	"Chat/task"
 	"errors"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
-	"github.com/XYYSWK/Rutils/pkg/password"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/password"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v4"
 )

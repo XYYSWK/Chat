@@ -3,7 +3,7 @@ package settings
 import (
 	"Chat/global"
 	"Chat/pkg/emailMark"
-	"github.com/XYYSWK/Rutils/pkg/email"
+	"github.com/XYYSWK/Lutils/pkg/email"
 )
 
 type mark struct {

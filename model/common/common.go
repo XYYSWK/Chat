@@ -3,7 +3,7 @@ package common
 import (
 	"Chat/global"
 	"encoding/json"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	"github.com/go-playground/validator/v10"
 	"sync"
 	"time"

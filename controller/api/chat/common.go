@@ -9,7 +9,7 @@ import (
 	"Chat/model/chat"
 	"Chat/model/common"
 	"context"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	socketio "github.com/googollee/go-socket.io"
 	"time"
 )

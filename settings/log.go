@@ -2,7 +2,7 @@ package settings
 
 import (
 	"Chat/global"
-	"github.com/XYYSWK/Rutils/pkg/logger"
+	"github.com/XYYSWK/Lutils/pkg/logger"
 )
 
 type log struct {

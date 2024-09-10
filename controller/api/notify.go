@@ -6,8 +6,8 @@ import (
 	"Chat/middlewares"
 	"Chat/model"
 	"Chat/model/request"
-	"github.com/XYYSWK/Rutils/pkg/app"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	"github.com/gin-gonic/gin"
 )
 

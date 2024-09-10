@@ -3,7 +3,7 @@ package gtype
 import (
 	"bytes"
 	"encoding/hex"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	"io"
 	"mime/multipart"
 	"strconv"

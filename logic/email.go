@@ -8,8 +8,8 @@ import (
 	"Chat/model/reply"
 	"Chat/pkg/emailMark"
 	"errors"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
-	"github.com/XYYSWK/Rutils/pkg/utils"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -46,7 +46,7 @@ func CheckEmailNotExists(ctx *gin.Context, emailStr string) errcode.Err {
 }
 
 // SendMark 发送验证码(邮件)
-func (email) SendMark(ctx *gin.Context, emailStr string) errcode.Err {
+func (email) SendMark(emailStr string) errcode.Err {
 	// 判断发送邮件的频率
 	if global.EmailMark.CheckUserExist(emailStr) {
 		return errcodes.EmailSendMany

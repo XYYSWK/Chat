@@ -9,7 +9,7 @@ import (
 	"Chat/model"
 	"Chat/model/reply"
 	"Chat/task"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	"github.com/gin-gonic/gin"
 )
 

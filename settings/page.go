@@ -2,7 +2,7 @@ package settings
 
 import (
 	"Chat/global"
-	"github.com/XYYSWK/Rutils/pkg/app"
+	"github.com/XYYSWK/Lutils/pkg/app"
 )
 
 type page struct {

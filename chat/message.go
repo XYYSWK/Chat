@@ -12,7 +12,7 @@ import (
 	"Chat/task"
 	"context"
 	"database/sql"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 )
 
 type message struct {

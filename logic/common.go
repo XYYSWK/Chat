@@ -4,7 +4,7 @@ import (
 	"Chat/global"
 	"Chat/model"
 	"Chat/pkg/retry"
-	"github.com/XYYSWK/Rutils/pkg/token"
+	"github.com/XYYSWK/Lutils/pkg/token"
 )
 
 // 尝试重试

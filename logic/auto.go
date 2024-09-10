@@ -4,7 +4,7 @@ import (
 	"Chat/dao"
 	"Chat/global"
 	"context"
-	"github.com/XYYSWK/Rutils/pkg/goroutine/task"
+	"github.com/XYYSWK/Lutils/pkg/goroutine/task"
 )
 
 type auto struct {

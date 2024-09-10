@@ -2,7 +2,7 @@ package settings
 
 import (
 	"Chat/global"
-	"github.com/XYYSWK/Rutils/pkg/goroutine/work"
+	"github.com/XYYSWK/Lutils/pkg/goroutine/work"
 )
 
 type worker struct {

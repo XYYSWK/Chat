@@ -2458,3 +2458,5 @@
 2024-06-20T23:17:26.827+0800	INFO	middlewares/logger.go:61	/api/user/login	{"status": 200, "method": "POST", "path": "/api/user/login", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0975294}
 2024-06-20T23:20:20.256+0800	INFO	Chat/main.go:66	Shutdown Server.
 2024-06-20T23:20:20.256+0800	INFO	Chat/main.go:77	Server exited!
+2024-09-08T15:24:50.145+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-10T22:07:01.230+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile

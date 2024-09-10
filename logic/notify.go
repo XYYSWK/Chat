@@ -11,7 +11,7 @@ import (
 	"Chat/model/request"
 	"Chat/task"
 	"database/sql"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	"github.com/gin-gonic/gin"
 	"time"
 )

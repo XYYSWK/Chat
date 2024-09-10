@@ -3,8 +3,8 @@ package api
 import (
 	"Chat/logic"
 	"Chat/model/request"
-	"github.com/XYYSWK/Rutils/pkg/app"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	"github.com/gin-gonic/gin"
 )
 
@@ -45,6 +45,6 @@ func (email) SendMark(ctx *gin.Context) {
 		reply.Reply(errcode.ErrParamsNotValid.WithDetails(err.Error()))
 		return
 	}
-	err := logic.Logics.Email.SendMark(ctx, params.Email)
+	err := logic.Logics.Email.SendMark(params.Email)
 	reply.Reply(err)
 }

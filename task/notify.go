@@ -6,7 +6,7 @@ import (
 	"Chat/model"
 	"Chat/model/chat"
 	"Chat/model/chat/server"
-	"github.com/XYYSWK/Rutils/pkg/utils"
+	"github.com/XYYSWK/Lutils/pkg/utils"
 )
 
 func CreateNotify(accessToken string, accountID, relationID int64, msgContent string, msgExtend *model.MsgExtend) func() {

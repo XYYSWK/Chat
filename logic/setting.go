@@ -13,7 +13,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"github.com/XYYSWK/Rutils/pkg/app/errcode"
+	"github.com/XYYSWK/Lutils/pkg/app/errcode"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v4"
 	"strings"

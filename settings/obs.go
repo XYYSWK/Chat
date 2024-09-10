@@ -2,7 +2,7 @@ package settings
 
 import (
 	"Chat/global"
-	"github.com/XYYSWK/Rutils/pkg/upload/obs/huawei_cloud"
+	"github.com/XYYSWK/Lutils/pkg/upload/obs/huawei_cloud"
 )
 
 type obs struct {

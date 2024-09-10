@@ -2,7 +2,7 @@ package settings
 
 import (
 	"Chat/global"
-	"github.com/XYYSWK/Rutils/pkg/generateID/snowflake"
+	"github.com/XYYSWK/Lutils/pkg/generateID/snowflake"
 	"time"
 )
 

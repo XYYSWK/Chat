@@ -4,7 +4,7 @@ import (
 	"Chat/global"
 	"Chat/pkg/tool"
 	"flag"
-	"github.com/XYYSWK/Rutils/pkg/setting"
+	"github.com/XYYSWK/Lutils/pkg/setting"
 	"strings"
 )
 

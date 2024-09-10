@@ -4,7 +4,7 @@ import (
 	"Chat/global"
 	"Chat/model/chat"
 	"Chat/model/chat/server"
-	"github.com/XYYSWK/Rutils/pkg/utils"
+	"github.com/XYYSWK/Lutils/pkg/utils"
 )
 
 // UpdateNickName 更新昵称的通知

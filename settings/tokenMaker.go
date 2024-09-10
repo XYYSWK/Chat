@@ -2,7 +2,7 @@ package settings
 
 import (
 	"Chat/global"
-	"github.com/XYYSWK/Rutils/pkg/token"
+	"github.com/XYYSWK/Lutils/pkg/token"
 )
 
 type tokenMaker struct {

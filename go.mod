@@ -3,7 +3,7 @@ module Chat
 go 1.22.0
 
 require (
-	github.com/XYYSWK/Rutils v0.0.0-20240427145515-feb8c3606844
+	github.com/XYYSWK/Lutils v0.0.0-20240910134635-6da8b259420e
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/validator/v10 v10.19.0
 	github.com/go-redis/redis/v8 v8.11.5

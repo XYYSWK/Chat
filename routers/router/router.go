@@ -5,7 +5,7 @@ import (
 	"Chat/global"
 	"Chat/middlewares"
 	"Chat/routers"
-	"github.com/XYYSWK/Rutils/pkg/app"
+	"github.com/XYYSWK/Lutils/pkg/app"
 	"github.com/gin-gonic/gin"
 	socketio "github.com/googollee/go-socket.io"
 	swaggerFiles "github.com/swaggo/files"

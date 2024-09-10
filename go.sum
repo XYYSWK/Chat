@@ -4,6 +4,8 @@ github.com/BurntSushi/toml v1.3.2/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbi
 github.com/KyleBanks/depth v1.2.1 h1:5h8fQADFrWtarTdtDudMmGsC7GPbOAu6RVB3ffsVFHc=
 github.com/KyleBanks/depth v1.2.1/go.mod h1:jzSb9d0L43HxTQfT+oSA1EEp2q+ne2uh6XgeJcm8brE=
 github.com/Masterminds/semver/v3 v3.1.1/go.mod h1:VPu/7SZ7ePZ3QOrcuXROw5FAcLl4a0cBrbBpGY/8hQs=
+github.com/XYYSWK/Lutils v0.0.0-20240910134635-6da8b259420e h1:/IrVMajYktoK4PeVw4/LG81YiW/3nBrOfJ0+Gb5R0RI=
+github.com/XYYSWK/Lutils v0.0.0-20240910134635-6da8b259420e/go.mod h1:6N3c1VawOQw11ITsmffK/O7+lAwRym3PvaAFC1VBC90=
 github.com/XYYSWK/Rutils v0.0.0-20240427145515-feb8c3606844 h1:dNdTzyQAzl7bwtNEVFfe8/4ivdbmhLRcobIaoa5s73s=
 github.com/XYYSWK/Rutils v0.0.0-20240427145515-feb8c3606844/go.mod h1:9Xel3dtYnAXilDly/DSWBtJFi7T4WUXTi0SA/q6ZMsQ=
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da h1:KjTM2ks9d14ZYCvmHS9iAKVt9AyzRSqNU1qabPih5BY=

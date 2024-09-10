@@ -6,7 +6,7 @@ import (
 	"Chat/model/chat"
 	"Chat/model/chat/server"
 	"Chat/model/reply"
-	"github.com/XYYSWK/Rutils/pkg/utils"
+	"github.com/XYYSWK/Lutils/pkg/utils"
 )
 
 /*

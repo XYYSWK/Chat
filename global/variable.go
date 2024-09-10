@@ -4,12 +4,12 @@ import (
 	"Chat/manager"
 	"Chat/model/config"
 	"Chat/pkg/emailMark"
-	"github.com/XYYSWK/Rutils/pkg/app"
-	"github.com/XYYSWK/Rutils/pkg/generateID/snowflake"
-	"github.com/XYYSWK/Rutils/pkg/goroutine/work"
-	"github.com/XYYSWK/Rutils/pkg/logger"
-	"github.com/XYYSWK/Rutils/pkg/token"
-	upload "github.com/XYYSWK/Rutils/pkg/upload/obs"
+	"github.com/XYYSWK/Lutils/pkg/app"
+	"github.com/XYYSWK/Lutils/pkg/generateID/snowflake"
+	"github.com/XYYSWK/Lutils/pkg/goroutine/work"
+	"github.com/XYYSWK/Lutils/pkg/logger"
+	"github.com/XYYSWK/Lutils/pkg/token"
+	upload "github.com/XYYSWK/Lutils/pkg/upload/obs"
 )
 
 var (

@@ -3,8 +3,8 @@ package middlewares
 import (
 	"Chat/global"
 	"fmt"
-	"github.com/XYYSWK/Rutils/pkg/email"
-	"github.com/XYYSWK/Rutils/pkg/times"
+	"github.com/XYYSWK/Lutils/pkg/email"
+	"github.com/XYYSWK/Lutils/pkg/times"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net"

@@ -3,7 +3,7 @@ package emailMark
 import (
 	"errors"
 	"fmt"
-	"github.com/XYYSWK/Rutils/pkg/email"
+	"github.com/XYYSWK/Lutils/pkg/email"
 	"sync"
 	"time"
 )

@@ -5,7 +5,7 @@ import (
 	"Chat/global"
 	"Chat/model/chat"
 	"Chat/model/chat/server"
-	"github.com/XYYSWK/Rutils/pkg/utils"
+	"github.com/XYYSWK/Lutils/pkg/utils"
 )
 
 func TransferGroup(accessToken string, accountID, relationID int64) func() {

@@ -1,6 +1,6 @@
 package errcodes
 
-import "github.com/XYYSWK/Rutils/pkg/app/errcode"
+import "github.com/XYYSWK/Lutils/pkg/app/errcode"
 
 var (
 	UserNotFound                = errcode.NewErr(2001, "用户不存在")

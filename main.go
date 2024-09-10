@@ -2,11 +2,14 @@ package main
 
 import (
 	"Chat/global"
+	"Chat/model/common"
 	"Chat/routers/router"
 	"Chat/settings"
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 	_ "github.com/jackc/pgx/v4"
 	"net/http"
 	"os"
@@ -21,6 +24,12 @@ func main() {
 	if global.PublicSetting.Server.RunMode == "release" {
 		gin.SetMode(gin.ReleaseMode)
 	}
+
+	// 验证邮箱是否合法
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		_ = v.RegisterValidation("email", common.ValidatorEmail)
+	}
+
 	//2.注册路由，返回 路由 和 Socket.IO 服务器实例
 	r, ws := router.NewRouter()
 
@@ -55,6 +64,7 @@ func main() {
 		}
 	}()
 
+	// 优雅退出
 	//创建一个接收信号的通道
 	quit := make(chan os.Signal, 1)                      //os.Signal 表示操作系统的信号，比如中断信号、终止信号等。
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM) // signal.Notify把收到的 syscall.SIGINT或syscall.SIGTERM 信号转发给quit

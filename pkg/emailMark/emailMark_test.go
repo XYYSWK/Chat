@@ -1,8 +1,8 @@
 package emailMark
 
 import (
-	"github.com/XYYSWK/Rutils/pkg/email"
-	"github.com/XYYSWK/Rutils/pkg/utils"
+	"github.com/XYYSWK/Lutils/pkg/email"
+	"github.com/XYYSWK/Lutils/pkg/utils"
 	"github.com/stretchr/testify/require"
 	"log"
 	"testing"
