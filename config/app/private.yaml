@@ -1,6 +1,6 @@
 Postgresql:
   DriverName: postgres # 驱动名称
-  SourceName: user=postgres password=123456 host=121.36.86.143 port=5432 dbname=chatroom sslmode=disable # 数据源名称
+  SourceName: user=postgres password=JCT1005kn. host=121.36.86.143 port=5432 dbname=chatroom sslmode=disable # 数据源名称
 Redis:
   Address: 121.36.86.143:6379 # redis 服务器地址
   DB: 0 # redis 数据库索引（0-15）
