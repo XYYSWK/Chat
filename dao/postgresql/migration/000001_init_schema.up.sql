@@ -36,7 +36,7 @@ create type MsgNotifyType As ENUM ('system', 'common');
 -- 用户
 create table if not exists users (
     id bigserial primary key, -- 用户 id（大自增整数）
-    email varchar(255) not null unique, -- 邮箱000001_init_schema.down.sql
+    email varchar(255) not null unique, -- 邮箱
     password varchar(255) not null, -- 密码
     create_at timestamptz not null default now() -- 创建时间（带时区）
 );
