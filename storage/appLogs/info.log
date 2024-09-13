@@ -2460,3 +2460,104 @@
 2024-06-20T23:20:20.256+0800	INFO	Chat/main.go:77	Server exited!
 2024-09-08T15:24:50.145+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
 2024-09-10T22:07:01.230+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-12T21:55:24.103+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-12T21:55:24.210+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-12T21:55:24.299+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-12T21:55:24.306+0800	INFO	Chat/main.go:44	Server started!
+2024-09-12T21:56:25.366+0800	INFO	middlewares/logger.go:61	/email/send	{"status": 404, "method": "POST", "path": "/email/send", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0}
+2024-09-12T21:57:20.713+0800	INFO	middlewares/logger.go:61	/email/send	{"status": 404, "method": "POST", "path": "/email/send", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0}
+2024-09-12T21:57:47.430+0800	INFO	middlewares/logger.go:61	/api/email/send	{"status": 200, "method": "POST", "path": "/api/email/send", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0029005}
+2024-09-12T21:58:29.528+0800	INFO	middlewares/logger.go:61	/api/user/register	{"status": 200, "method": "POST", "path": "/api/user/register", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.1585664}
+2024-09-12T21:59:13.036+0800	INFO	middlewares/logger.go:61	/api/user/login	{"status": 200, "method": "POST", "path": "/api/user/login", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.1198169}
+2024-09-12T22:02:26.822+0800	INFO	middlewares/logger.go:61	/api/account/create	{"status": 200, "method": "POST", "path": "/api/account/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.4813914}
+2024-09-12T22:03:49.562+0800	INFO	middlewares/logger.go:61	/api/account/create	{"status": 200, "method": "POST", "path": "/api/account/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.2855681}
+2024-09-12T22:05:02.757+0800	INFO	middlewares/logger.go:61	/api/application/create	{"status": 200, "method": "POST", "path": "/api/application/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.3731398}
+2024-09-12T22:06:03.201+0800	INFO	middlewares/logger.go:61	/api/application/accept	{"status": 200, "method": "PUT", "path": "/api/application/accept", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.1300078}
+2024-09-12T22:13:29.481+0800	INFO	middlewares/logger.go:61	/api/application/accept	{"status": 200, "method": "PUT", "path": "/api/application/accept", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.8599857}
+2024-09-12T22:16:07.908+0800	INFO	middlewares/logger.go:61	/api/chat	{"status": 404, "method": "POST", "path": "/api/chat", "query": "", "ip": "127.0.0.1", "user-agent": "PostmanRuntime/7.32.3", "errors": "", "cost": 0}
+2024-09-12T22:17:20.544+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:9156 1
+
+2024-09-12T22:17:20.555+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0239206}
+2024-09-12T22:17:56.106+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:9256 2
+
+2024-09-12T22:17:56.117+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0230889}
+2024-09-12T22:18:31.381+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:9331 3
+
+2024-09-12T22:18:31.381+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0138722}
+2024-09-12T22:18:37.560+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.0240587}
+2024-09-12T22:18:42.766+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 1.6005038}
+2024-09-12T22:18:47.546+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:9361 4
+
+2024-09-12T22:18:51.172+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:9373 5
+
+2024-09-12T22:26:12.690+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:11157 6
+
+2024-09-12T22:26:12.691+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0073089}
+2024-09-12T22:26:18.264+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 2.4332451}
+2024-09-12T22:26:25.844+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:11182 7
+
+2024-09-12T22:27:34.415+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 1.3455614}
+2024-09-12T22:27:43.070+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:11338 8
+
+2024-09-12T22:30:26.028+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 2.6437977}
+2024-09-12T22:30:33.389+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:11821 9
+
+2024-09-12T22:32:16.168+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.0007814}
+2024-09-12T22:32:26.182+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:12217 a
+
+2024-09-12T22:33:14.539+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.0009944}
+2024-09-12T22:33:24.539+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:12409 b
+
+2024-09-12T23:08:07.838+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3318 c
+
+2024-09-12T23:08:07.838+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0224756}
+2024-09-12T23:08:32.345+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.0184015}
+2024-09-12T23:08:42.332+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3365 d
+
+2024-09-12T23:09:16.849+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.01867}
+2024-09-12T23:09:26.842+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3435 e
+
+2024-09-12T23:09:28.171+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.0128712}
+2024-09-12T23:09:38.167+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3445 f
+
+2024-09-12T23:10:32.579+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3520 g
+
+2024-09-12T23:10:32.579+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0026358}
+2024-09-12T23:10:49.366+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3539 h
+
+2024-09-12T23:10:49.366+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0070987}
+2024-09-12T23:13:28.611+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 4.3677002}
+2024-09-12T23:13:34.251+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3815 i
+
+2024-09-12T23:14:18.780+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3885 j
+
+2024-09-12T23:14:18.781+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0153876}
+2024-09-12T23:14:49.006+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.9287664}
+2024-09-12T23:14:58.079+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:3917 k
+
+2024-09-12T23:16:47.197+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:4066 l
+
+2024-09-12T23:16:47.197+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0109163}
+2024-09-12T23:20:03.923+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 136.4981027}
+2024-09-12T23:20:23.186+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-12T23:20:23.188+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T12:26:28.008+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T12:26:28.118+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T12:26:28.394+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T12:26:28.408+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T12:26:46.386+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:9096 1
+
+2024-09-13T12:26:46.386+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0140319}
+2024-09-13T12:27:34.509+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 25.3986602}
+2024-09-13T12:29:22.243+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 2.1438972}
+2024-09-13T12:29:30.105+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:9659 3
+
+2024-09-13T12:31:41.458+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 109.1446712}
+2024-09-13T12:34:50.359+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.0183545}
+2024-09-13T12:35:00.353+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:10834 5
+
+2024-09-13T12:44:46.144+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0005282}
+2024-09-13T12:45:37.230+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0291685}
+2024-09-13T12:47:57.737+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.026252}
+2024-09-13T12:50:40.942+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T12:50:40.953+0800	INFO	Chat/main.go:87	Server exited!

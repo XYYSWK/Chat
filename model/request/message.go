@@ -54,7 +54,7 @@ type ParamGetRlyMsgsInfoByMsgID struct {
 }
 
 type ParamGetMsgsByContent struct {
-	RelationID int64  `form:"relation_id" binding:"required"`
-	Content    string `form:"content"`
+	RelationID int64  `form:"relation_id"`
+	Content    string `form:"content" binding:"required"`
 	common.Page
 }
