@@ -7,7 +7,6 @@ import (
 	"Chat/global"
 	"Chat/middlewares"
 	"Chat/model"
-	"Chat/model/common"
 	"Chat/model/reply"
 	"Chat/task"
 	"errors"
@@ -50,20 +49,31 @@ func (user) Register(ctx *gin.Context, emailStr, pwd, code string) (*reply.Param
 		return nil, errcode.ErrServer
 	}
 	// 创建 token
-	userToken, payload, err := newToken(model.UserToken, userInfo.ID)
+	accessToken, accessPayload, err := newUserToken(model.UserToken, userInfo.ID, global.PrivateSetting.Token.AccessTokenExpire)
 	if err != nil {
 		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
 		return nil, errcode.ErrServer
 	}
+	refreshToken, _, err := newUserToken(model.UserToken, userInfo.ID, global.PrivateSetting.Token.RefreshTokenExpire)
+	if err != nil {
+		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
+		return nil, errcode.ErrServer
+	}
+
+	if err = dao.Database.Redis.SaveUserToken(ctx, userInfo.ID, []string{accessToken, refreshToken}); err != nil {
+		return nil, errcode.ErrServer.WithDetails(err.Error())
+	}
+
 	return &reply.ParamRegister{
 		ParamUserInfo: reply.ParamUserInfo{
 			ID:       userInfo.ID,
 			Email:    userInfo.Email,
 			CreateAt: userInfo.CreateAt,
 		},
-		Token: common.Token{
-			Token:    userToken,
-			ExpireAt: payload.ExpiredAt,
+		Token: reply.ParamToken{
+			AccessToken:   accessToken,
+			AccessPayload: accessPayload,
+			RefreshToken:  refreshToken,
 		},
 	}, nil
 }
@@ -77,10 +87,18 @@ func (user) Login(ctx *gin.Context, emailStr, pwd string) (*reply.ParamLogin, er
 		return nil, errcodes.PasswordNotValid
 	}
 	// 创建 token
-	userToken, payload, err := newToken(model.UserToken, userInfo.ID)
+	accessToken, accessPayload, err := newUserToken(model.UserToken, userInfo.ID, global.PrivateSetting.Token.AccessTokenExpire)
 	if err != nil {
 		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
 		return nil, errcode.ErrServer
+	}
+	refreshToken, _, err := newUserToken(model.UserToken, userInfo.ID, global.PrivateSetting.Token.RefreshTokenExpire)
+	if err != nil {
+		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
+		return nil, errcode.ErrServer
+	}
+	if err = dao.Database.Redis.SaveUserToken(ctx, userInfo.ID, []string{accessToken, refreshToken}); err != nil {
+		return nil, errcode.ErrServer.WithDetails(err.Error())
 	}
 	return &reply.ParamLogin{
 		ParamUserInfo: reply.ParamUserInfo{
@@ -88,9 +106,10 @@ func (user) Login(ctx *gin.Context, emailStr, pwd string) (*reply.ParamLogin, er
 			Email:    userInfo.Email,
 			CreateAt: userInfo.CreateAt,
 		},
-		Token: common.Token{
-			Token:    userToken,
-			ExpireAt: payload.ExpiredAt,
+		Token: reply.ParamToken{
+			AccessToken:   accessToken,
+			AccessPayload: accessPayload,
+			RefreshToken:  refreshToken,
 		},
 	}, nil
 }
@@ -121,6 +140,11 @@ func (user) UpdateUserPassword(ctx *gin.Context, userID int64, code, newPwd stri
 	}); err != nil {
 		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
 		return errcode.ErrServer
+	}
+
+	// 清除用户的 token
+	if err := dao.Database.Redis.DeleteAllTokenByUser(ctx, userID); err != nil {
+		return errcode.ErrServer.WithDetails(err.Error())
 	}
 	return nil
 }
@@ -159,6 +183,26 @@ func (user) UpdateUserEmail(ctx *gin.Context, userID int64, emailStr, code strin
 	// 推送更改邮箱通知
 	accessToken, _ := middlewares.GetToken(ctx.Request.Header)
 	global.Worker.SendTask(task.UpdateEmail(accessToken, userID, emailStr))
+	return nil
+}
+
+// Logout 退出登录
+func (user) Logout(ctx *gin.Context) errcode.Err {
+	Token, payload, err := GetTokenAndPayload(ctx)
+	if err != nil {
+		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
+		return errcodes.AuthenticationFailed
+	}
+	content := &model.Content{}
+	_ = content.Unmarshal(payload.Content)
+	//先判断用户在redis中是否存在
+	if ok := dao.Database.Redis.CheckUserTokenValid(ctx, content.ID, Token); !ok {
+		return errcodes.UserNotFound
+	}
+	//先将token从redis中清除
+	if err := dao.Database.Redis.DeleteAllTokenByUser(ctx, content.ID); err != nil {
+		return errcode.ErrServer.WithDetails(err.Error())
+	}
 	return nil
 }
 

@@ -2561,3 +2561,99 @@
 2024-09-13T12:47:57.737+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.026252}
 2024-09-13T12:50:40.942+0800	INFO	Chat/main.go:76	Shutdown Server.
 2024-09-13T12:50:40.953+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T12:51:07.093+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T12:51:07.192+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T12:51:07.435+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T12:51:07.437+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T12:53:21.162+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0627314}
+2024-09-13T12:55:43.435+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "relation_id=3&content=%E5%A5%BD", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.1957504}
+2024-09-13T12:56:51.790+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "relation_id=3&content=%E4%BD%A0%E5%A5%BD", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0817269}
+2024-09-13T12:57:16.077+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "relation_id=3&content=%E5%8F%AF%E4%BB%A5", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0747931}
+2024-09-13T13:03:33.989+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "relation_id=3&content=l", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0828455}
+2024-09-13T13:06:34.775+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T13:06:34.776+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T13:06:37.822+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T13:06:37.913+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T13:06:38.158+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T13:06:38.160+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T13:10:27.245+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T13:10:27.245+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T13:21:22.845+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T13:21:22.946+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T13:21:23.032+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T13:21:23.034+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T13:21:25.445+0800	INFO	middlewares/logger.go:61	/api/application/create	{"status": 200, "method": "POST", "path": "/api/application/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.5018634}
+2024-09-13T13:21:35.675+0800	INFO	middlewares/logger.go:61	/api/application/accept	{"status": 200, "method": "PUT", "path": "/api/application/accept", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.512037}
+2024-09-13T13:23:11.207+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 9.8825091}
+2024-09-13T13:23:11.339+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:4357 1
+
+2024-09-13T13:24:03.340+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 14.0649086}
+2024-09-13T13:24:40.948+0800	INFO	middlewares/logger.go:61	/api/account/token	{"status": 404, "method": "GET", "path": "/api/account/token", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0}
+2024-09-13T13:25:20.681+0800	INFO	middlewares/logger.go:61	/api/account/token	{"status": 200, "method": "POST", "path": "/api/account/token", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0009101}
+2024-09-13T13:25:45.546+0800	INFO	middlewares/logger.go:61	/api/account/token	{"status": 200, "method": "POST", "path": "/api/account/token", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0806983}
+2024-09-13T13:27:09.315+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "relation_id=1&content=l", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.108888}
+2024-09-13T13:30:10.923+0800	INFO	middlewares/logger.go:61	/api/message/list/content	{"status": 200, "method": "GET", "path": "/api/message/list/content", "query": "relation_id=1&content=and", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0741152}
+2024-09-13T13:31:39.746+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T13:31:39.746+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T13:31:43.649+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T13:31:43.733+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T13:31:43.875+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T13:31:43.886+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T13:33:31.666+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T13:33:31.666+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T13:34:53.295+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T13:34:53.390+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T13:34:53.465+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T13:34:53.468+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T13:34:54.971+0800	INFO	middlewares/logger.go:61	/api/application/create	{"status": 200, "method": "POST", "path": "/api/application/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.276117}
+2024-09-13T13:35:00.319+0800	INFO	middlewares/logger.go:61	/api/application/accept	{"status": 200, "method": "PUT", "path": "/api/application/accept", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.4660502}
+2024-09-13T13:35:38.930+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 11.964165}
+2024-09-13T13:35:48.461+0800	INFO	middlewares/logger.go:61	/api/account/token	{"status": 200, "method": "POST", "path": "/api/account/token", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0748975}
+2024-09-13T13:36:19.963+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 14.6552829}
+2024-09-13T13:37:25.181+0800	INFO	middlewares/logger.go:61	/api/account/token	{"status": 200, "method": "POST", "path": "/api/account/token", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0460267}
+2024-09-13T13:38:50.948+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 136.393984}
+2024-09-13T13:39:37.850+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 1.7522323}
+2024-09-13T13:39:46.100+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:6845 4
+
+2024-09-13T13:39:49.128+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:6848 5
+
+2024-09-13T13:39:49.128+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0139969}
+2024-09-13T13:40:13.954+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 12.3609371}
+2024-09-13T13:40:52.820+0800	INFO	middlewares/logger.go:61	/api/account/token	{"status": 200, "method": "POST", "path": "/api/account/token", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0799471}
+2024-09-13T13:42:14.157+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 60.221789}
+2024-09-13T13:42:21.253+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T13:42:21.264+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T13:42:24.917+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T13:42:25.016+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T13:42:25.181+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T13:42:25.183+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T13:42:54.140+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.7949057}
+2024-09-13T13:43:33.685+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T13:43:33.685+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-13T13:44:06.576+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T13:44:06.644+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-13T13:44:06.715+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-13T13:44:06.717+0800	INFO	Chat/main.go:44	Server started!
+2024-09-13T13:44:10.173+0800	INFO	middlewares/logger.go:61	/api/email/send	{"status": 200, "method": "POST", "path": "/api/email/send", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0005024}
+2024-09-13T13:44:33.954+0800	INFO	middlewares/logger.go:61	/api/user/register	{"status": 200, "method": "POST", "path": "/api/user/register", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.1803882}
+2024-09-13T13:45:02.445+0800	INFO	middlewares/logger.go:61	/api/account/create	{"status": 200, "method": "POST", "path": "/api/account/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.3828884}
+2024-09-13T13:45:43.902+0800	INFO	middlewares/logger.go:61	/api/account/create	{"status": 200, "method": "POST", "path": "/api/account/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.2240015}
+2024-09-13T13:46:15.659+0800	INFO	middlewares/logger.go:61	/api/application/create	{"status": 200, "method": "POST", "path": "/api/application/create", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.2454074}
+2024-09-13T13:46:19.366+0800	INFO	middlewares/logger.go:61	/api/application/accept	{"status": 200, "method": "PUT", "path": "/api/application/accept", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.4062643}
+2024-09-13T13:47:08.679+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 29.6039535}
+2024-09-13T13:47:58.993+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 0.0190404}
+2024-09-13T13:48:08.984+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:8098 2
+
+2024-09-13T13:48:12.091+0800	INFO	chat/handle.go:27	auth failed: 127.0.0.1:8099 3
+
+2024-09-13T13:48:12.091+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 10.0117166}
+2024-09-13T17:25:52.787+0800	INFO	middlewares/logger.go:61	/socket.io/	{"status": 200, "method": "GET", "path": "/socket.io/", "query": "EIO=3&transport=websocket", "ip": "127.0.0.1", "user-agent": "", "errors": "", "cost": 13059.8355829}
+2024-09-13T17:25:52.812+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-13T17:38:55.728+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-13T17:38:55.730+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-17T20:22:00.470+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-17T20:22:00.585+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-17T20:22:00.804+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-17T20:22:00.809+0800	INFO	Chat/main.go:44	Server started!
+2024-09-17T20:22:41.658+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-17T20:22:41.658+0800	INFO	Chat/main.go:87	Server exited!

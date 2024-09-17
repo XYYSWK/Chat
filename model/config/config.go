@@ -36,6 +36,7 @@ type PrivateConfig struct {
 	Email      Email            `yaml:"Email"`
 	Token      Token            `yaml:"Token"`
 	HuaWeiOBS  HuaWeiOBS        `yaml:"HuaWeiOBS"`
+	RocketMQ   RocketMQ         `yaml:"RocketMQ"`
 }
 
 type LogConfig struct {
@@ -135,7 +136,8 @@ type Email struct {
 
 type Token struct {
 	Key                  string        `yaml:"Key"`                  // 生成 token 的密钥
-	UserTokenDuration    time.Duration `yaml:"UserTokenDuration"`    // 用户 token 的有效期限
+	AccessTokenExpire    time.Duration `yaml:"AccessTokenExpire"`    // 用户 token 的访问令牌
+	RefreshTokenExpire   time.Duration `yaml:"RefreshTokenExpire"`   // 用户 token 的刷新令牌
 	AccountTokenDuration time.Duration `yaml:"AccountTokenDuration"` // 账户 token 的有效期限
 	AuthorizationKey     string        `yaml:"AuthorizationKey"`     // 授权密钥，用于进行授权验证
 	AuthorizationType    string        `yaml:"AuthorizationType"`    // 授权类型，指定授权的具体方式或策略
@@ -153,4 +155,9 @@ type HuaWeiOBS struct {
 	AvatarType       string `yaml:"FileType"`         // 头像类型
 	AccountAvatarUrl string `yaml:"AccountAvatarUrl"` // 账户头像 URL（存储桶中存储账户头像的一个特定路径）
 	GroupAvatarUrl   string `yaml:"GroupAvatarUrl"`   // 群组头像 URL（存储桶中存储群组头像的一个特定路径）
+}
+
+type RocketMQ struct {
+	Addr string `yaml:"Addr"` // RocketMQ 服务的地址
+	Port int    `yaml:"Port"` // RocketMQ 服务的端口号
 }

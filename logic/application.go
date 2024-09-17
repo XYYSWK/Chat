@@ -131,14 +131,17 @@ func (application) AcceptApplication(ctx *gin.Context, accountID1, accountID2 in
 		return errcode.ErrServer
 	}
 	// 推送消息
-	global.Worker.SendTask(task.PublishMsg("", reply.ParamMsgInfo{
-		ID:         msgInfo.ID,
-		NotifyType: string(msgInfo.NotifyType),
-		MsgType:    msgInfo.MsgType,
-		MsgContent: msgInfo.MsgContent,
-		RelationID: msgInfo.RelationID,
-		CreateAt:   msgInfo.CreateAt,
-	}, nil))
+	global.Worker.SendTask(task.PublishMsg(reply.ParamMsgInfoWithRly{
+		ParamMsgInfo: reply.ParamMsgInfo{
+			ID:         msgInfo.ID,
+			NotifyType: string(msgInfo.NotifyType),
+			MsgType:    msgInfo.MsgType,
+			MsgContent: msgInfo.MsgContent,
+			RelationID: msgInfo.RelationID,
+			CreateAt:   msgInfo.CreateAt,
+		},
+		RlyMsg: nil,
+	}))
 	return nil
 }
 

@@ -18,6 +18,7 @@ func (user) Init(router *gin.RouterGroup) {
 		{
 			updateGroup.PUT("pwd", api.Apis.User.UpdateUserPassword)
 			updateGroup.PUT("email", api.Apis.User.UpdateUserEmail)
+			updateGroup.GET("/logout", api.Apis.User.Logout)
 		}
 		r.DELETE("deleteUser", middlewares.MustUser(), api.Apis.User.DeleteUser)
 	}

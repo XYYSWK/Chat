@@ -18,8 +18,9 @@ Email:
     - 3469884427@qq.com
 Token:
   Key: tqgymXijyHpZbeoXcOexVBHbBsBlDNrm # 密钥（必须是32个字节，因为我们使用的是 chacha20poly1305 加密算法）
-  UserTokenDuration: 24h # 用户 token 的有效期限
-  AccountTokenDuration: 720h # 账户 token 的有效期限
+  AccessTokenExpire: 168h # 用户 token 的访问令牌
+  RefreshTokenExpire: 720h # 用户 token 的刷新令牌
+  AccountTokenDuration: 24h # 账户 token 的有效期限
   AuthorizationKey: Authorization
   AuthorizationType: Bearer
 HuaWeiOBS:
@@ -31,3 +32,6 @@ HuaWeiOBS:
   AvatarType: NotAvatar
   AccountAvatarUrl: account_avatars/
   GroupAvatarUrl: group_avatars/ # 群组头像 URL
+RocketMQ:
+  Addr: "121.36.86.143"
+  Port: 9876

@@ -84,3 +84,19 @@ func (r *RDB) DeleteRelationAccount(ctx context.Context, relationID int64, accou
 	}
 	return r.rdb.SRem(ctx, utils.LinkStr(keyGroup, utils.IDToString(relationID)), data...).Err()
 }
+
+// GetAllAccountsByRelationID 从 redis 中获取所有 Account
+func (r *RDB) GetAllAccountsByRelationID(ctx context.Context, relationID int64) ([]int64, error) {
+	id := utils.IDToString(relationID)
+	key := utils.LinkStr(keyGroup, id)
+	accountsIDStr, err := r.rdb.SMembers(ctx, key).Result()
+	if err != nil {
+		return nil, err
+	}
+	accountIDs := make([]int64, 0, len(accountsIDStr))
+	for _, str := range accountsIDStr {
+		accountID := utils.StringToIDMust(str)
+		accountIDs = append(accountIDs, accountID)
+	}
+	return accountIDs, nil
+}

@@ -42,7 +42,7 @@ func (account) CreateAccount(ctx *gin.Context, userID int64, name, avatar, gende
 		return nil, errcode.ErrServer
 	}
 	// 生成账户 token
-	token, payload, err := newToken(model.AccountToken, arg.ID)
+	token, payload, err := newAccountToken(model.AccountToken, arg.ID)
 	if err != nil {
 		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
 		return nil, errcode.ErrServer
@@ -69,7 +69,7 @@ func (account) GetAccountToken(ctx *gin.Context, userID, accountID int64) (*repl
 	if accountInfo.UserID != userID {
 		return nil, errcodes.AuthPermissionsInsufficient
 	}
-	token, payload, err := newToken(model.AccountToken, accountID)
+	token, payload, err := newAccountToken(model.AccountToken, accountID)
 	if err != nil {
 		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
 		return nil, errcode.ErrServer

@@ -12,7 +12,7 @@ func TransferGroup(accessToken string, accountID, relationID int64) func() {
 	ctx, cancel := global.DefaultContextWithTimeout()
 	defer cancel()
 	// 获取群中所有成员的ID
-	members, err := dao.Database.DB.GetGroupMembers(ctx, relationID)
+	members, err := dao.Database.Redis.GetAllAccountsByRelationID(ctx, relationID)
 	if err != nil {
 		global.Logger.Error(err.Error())
 	}
@@ -27,7 +27,7 @@ func TransferGroup(accessToken string, accountID, relationID int64) func() {
 func DissolveGroup(accessToken string, relationID int64) func() {
 	ctx, cancel := global.DefaultContextWithTimeout()
 	defer cancel()
-	members, err := dao.Database.DB.GetGroupMembers(ctx, relationID)
+	members, err := dao.Database.Redis.GetAllAccountsByRelationID(ctx, relationID)
 	if err != nil {
 		global.Logger.Error(err.Error())
 	}
@@ -42,7 +42,7 @@ func DissolveGroup(accessToken string, relationID int64) func() {
 func InviteGroup(accessToken string, accountID, relationID int64) func() {
 	ctx, cancel := global.DefaultContextWithTimeout()
 	defer cancel()
-	members, err := dao.Database.DB.GetGroupMembers(ctx, relationID)
+	members, err := dao.Database.Redis.GetAllAccountsByRelationID(ctx, relationID)
 	if err != nil {
 		global.Logger.Error(err.Error())
 	}
@@ -57,7 +57,7 @@ func InviteGroup(accessToken string, accountID, relationID int64) func() {
 func QuitGroup(accessToken string, accountID, relationID int64) func() {
 	ctx, cancel := global.DefaultContextWithTimeout()
 	defer cancel()
-	members, err := dao.Database.DB.GetGroupMembers(ctx, relationID)
+	members, err := dao.Database.Redis.GetAllAccountsByRelationID(ctx, relationID)
 	if err != nil {
 		global.Logger.Error(err.Error())
 	}

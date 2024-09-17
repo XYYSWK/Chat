@@ -108,6 +108,25 @@ func (user) UpdateUserEmail(ctx *gin.Context) {
 	reply.Reply(err)
 }
 
+// Logout 用户登出
+// @Tags     Logout
+// @Summary  用户登出
+// @accept   application/json
+// @Produce  application/json
+// @Param Authorization header string true "x-token 用户令牌"
+// @Success  200   {object}  common.State{}  "1001:参数有误 1003:系统错误 3001:邮箱已经注册 "
+// @Router   /api/v1/user/logout [get]
+func (user) Logout(ctx *gin.Context) {
+	reply := app.NewResponse(ctx)
+	if err := logic.Logics.User.Logout(ctx); err != nil {
+		reply.Reply(err)
+		return
+	}
+	reply.Reply(nil, gin.H{
+		"msg": "登出成功",
+	})
+}
+
 // DeleteUser 删除用户
 // @Tags user
 // @Summary 删除用户

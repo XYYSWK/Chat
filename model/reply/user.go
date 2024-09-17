@@ -1,7 +1,7 @@
 package reply
 
 import (
-	"Chat/model/common"
+	"github.com/XYYSWK/Lutils/pkg/token"
 	"time"
 )
 
@@ -17,10 +17,16 @@ type ParamUserInfo struct {
 
 type ParamRegister struct {
 	ParamUserInfo ParamUserInfo `json:"param_user_info"` // 用户信息
-	Token         common.Token  `json:"token"`           // 用户令牌
+	Token         ParamToken    `json:"token"`           // 用户令牌
 }
 
 type ParamLogin struct {
 	ParamUserInfo ParamUserInfo `json:"param_user_info"` // 用户信息
-	Token         common.Token  `json:"token"`           // 用户令牌
+	Token         ParamToken    `json:"token"`           // 用户令牌
+}
+
+type ParamToken struct {
+	AccessToken   string         `json:"access_token"`
+	AccessPayload *token.Payload `json:"access_payload"`
+	RefreshToken  string         `json:"refresh_token"`
 }

@@ -4,6 +4,7 @@ import (
 	"Chat/global"
 	"Chat/model/chat/client"
 	"Chat/model/common"
+	"Chat/pkg/rocketmq/consumer"
 	"Chat/task"
 	"fmt"
 	"github.com/XYYSWK/Lutils/pkg/app/errcode"
@@ -83,8 +84,9 @@ func (handle) Auth(s socketio.Conn, accessToken string) string {
 	s.SetContext(token)
 	// 加入在线群组
 	global.ChatMap.Link(s, token.Content.ID)
-	// 通知其他设备
 	global.Worker.SendTask(task.AccountLogin(accessToken, s.RemoteAddr().String(), token.Content.ID))
 	log.Println("auth accept:", s.RemoteAddr().String())
+	// 从 mq 中，读取离线消息
+	go consumer.StartConsumer(token.Content.ID)
 	return common.NewState(nil).MustJson()
 }

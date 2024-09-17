@@ -6,6 +6,7 @@ import (
 	"Chat/model/chat"
 	"Chat/model/chat/server"
 	"Chat/model/reply"
+	"Chat/pkg/rocketmq/producer"
 	"github.com/XYYSWK/Lutils/pkg/utils"
 )
 
@@ -15,22 +16,23 @@ import (
 
 // PublishMsg 推送消息事件和执行拓展内容
 // 参数：消息和回复消息
-func PublishMsg(accessToken string, msgInfo reply.ParamMsgInfo, rlyMsg *reply.ParamRlyMsg) func() {
+func PublishMsg(msg reply.ParamMsgInfoWithRly) func() {
 	return func() {
 		ctx, cancel := global.DefaultContextWithTimeout()
 		defer cancel()
-		accountIDs, err := dao.Database.DB.GetAccountIDsByRelationID(ctx, msgInfo.RelationID)
+		accountIDs, err := dao.Database.Redis.GetAllAccountsByRelationID(ctx, msg.RelationID)
 		if err != nil {
 			global.Logger.Error(err.Error())
 			return
 		}
-		global.ChatMap.SendMany(accountIDs, chat.ServerSendMsg, server.SendMsg{
-			EnToken: utils.EncodeMD5(accessToken),
-			MsgInfo: reply.ParamMsgInfoWithRly{
-				ParamMsgInfo: msgInfo,
-				RlyMsg:       rlyMsg,
-			},
-		})
+		for _, accountID := range accountIDs {
+			// 用户如果在线，直接将消息发送过去
+			if global.ChatMap.CheckIsOnConnection(accountID) {
+				global.ChatMap.Send(accountID, chat.ClientSendMsg, msg)
+			} else { // 用户处于离线状态，将消息发送至 MQ 中
+				producer.SendMsgToMQ(accountID, msg)
+			}
+		}
 	}
 }
 
@@ -63,7 +65,7 @@ func UpdateMsgState(accessToken string, relationID, msgID int64, msgType server.
 	return func() {
 		ctx, cancel := global.DefaultContextWithTimeout()
 		defer cancel()
-		accountIDs, err := dao.Database.DB.GetAccountIDsByRelationID(ctx, relationID)
+		accountIDs, err := dao.Database.Redis.GetAllAccountsByRelationID(ctx, relationID)
 		if err != nil {
 			global.Logger.Error(err.Error())
 			return

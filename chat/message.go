@@ -77,16 +77,19 @@ func (message) SendMsg(ctx context.Context, params *model.HandleSendMsg) (*clien
 	}
 
 	// 推送消息
-	global.Worker.SendTask(task.PublishMsg(params.AccessToken, reply.ParamMsgInfo{
-		ID:         result.ID,
-		NotifyType: string(db.MsgnotifytypeCommon),
-		MsgType:    string(model.MsgTypeText),
-		MsgContent: result.MsgContent,
-		MsgExtend:  params.MsgExtend,
-		AccountID:  params.AccountID,
-		RelationID: params.RelationID,
-		CreateAt:   result.CreateAt,
-	}, rlyMsg))
+	global.Worker.SendTask(task.PublishMsg(reply.ParamMsgInfoWithRly{
+		ParamMsgInfo: reply.ParamMsgInfo{
+			ID:         result.ID,
+			NotifyType: string(db.MsgnotifytypeCommon),
+			MsgType:    string(model.MsgTypeText),
+			MsgContent: result.MsgContent,
+			MsgExtend:  params.MsgExtend,
+			AccountID:  params.AccountID,
+			RelationID: params.RelationID,
+			CreateAt:   result.CreateAt,
+		},
+		RlyMsg: rlyMsg,
+	}))
 	return &client.HandleSendMsgRly{
 		MsgID:    result.ID,
 		CreateAt: result.CreateAt,

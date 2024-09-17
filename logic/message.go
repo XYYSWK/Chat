@@ -84,20 +84,20 @@ func (message) CreateFileMsg(ctx *gin.Context, params model.CreateFileMsg) (*rep
 		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
 		return nil, errcode.ErrServer
 	}
-	// 获取 token
-	accessToken, _ := middlewares.GetToken(ctx.Request.Header)
 	// 推送消息
-	global.Worker.SendTask(task.PublishMsg(accessToken, reply.ParamMsgInfo{
-		ID:         result.ID,
-		NotifyType: string(db.MsgnotifytypeCommon),
-		MsgType:    string(model.MsgTypeFile),
-		MsgContent: fileInfo.Url,
-		MsgExtend:  nil,
-		FileID:     fileInfo.ID,
-		AccountID:  params.AccountID,
-		RelationID: params.RelationID,
-		CreateAt:   fileInfo.CreateAt,
-	}, rlyMsg))
+	global.Worker.SendTask(task.PublishMsg(reply.ParamMsgInfoWithRly{
+		ParamMsgInfo: reply.ParamMsgInfo{
+			ID:         result.ID,
+			NotifyType: string(db.MsgnotifytypeCommon),
+			MsgType:    string(model.MsgTypeText),
+			MsgContent: result.MsgContent,
+			MsgExtend:  nil,
+			AccountID:  params.AccountID,
+			RelationID: params.RelationID,
+			CreateAt:   result.CreateAt,
+		},
+		RlyMsg: rlyMsg,
+	}))
 	return &reply.ParamCreateFileMsg{
 		ID:         result.ID,
 		MsgContent: result.MsgContent,
@@ -382,14 +382,17 @@ func (message) RevokeMsg(ctx *gin.Context, accountID, msgID int64) errcode.Err {
 			if err != nil {
 				return err
 			}
-			global.Worker.SendTask(task.PublishMsg(accessToken, reply.ParamMsgInfo{
-				ID:         msgRly.ID,
-				NotifyType: string(arg.NotifyType),
-				MsgType:    arg.MsgType,
-				MsgContent: arg.MsgContent,
-				RelationID: arg.RelationID,
-				CreateAt:   msgRly.CreateAt,
-			}, nil))
+			global.Worker.SendTask(task.PublishMsg(reply.ParamMsgInfoWithRly{
+				ParamMsgInfo: reply.ParamMsgInfo{
+					ID:         msgRly.ID,
+					NotifyType: string(arg.NotifyType),
+					MsgType:    arg.MsgType,
+					MsgContent: arg.MsgContent,
+					RelationID: arg.RelationID,
+					CreateAt:   msgRly.CreateAt,
+				},
+				RlyMsg: nil,
+			}))
 			return nil
 		}
 		if err := f(); err != nil {
