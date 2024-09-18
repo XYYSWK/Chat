@@ -11,7 +11,7 @@ import (
 	"github.com/apache/rocketmq-client-go/v2/producer"
 )
 
-// SendMsgToMQ 创建一个生产者，通过 RocketMQ 发送一条系统消息，告知指定用户他们已加入聊天室。
+// SendMsgToMQ 通过 RocketMQ 发送消息，实现了一个生产者向指定的 RocketMQ 消息队列发送消息的逻辑
 func SendMsgToMQ(mID int64, msg reply.ParamMsgInfoWithRly) {
 	// 创建一个 RocketMQ 生产者，连接到指定的 RocketMQ 服务器
 	p, err := rocketmq.NewProducer(producer.WithNameServer([]string{fmt.Sprintf("%s:%d", global.PrivateSetting.RocketMQ.Addr, global.PrivateSetting.RocketMQ.Port)}))

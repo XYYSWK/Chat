@@ -233,6 +233,22 @@ func (user) DeleteUser(ctx *gin.Context, userID int64) errcode.Err {
 			return dao.Database.Redis.DeleteEmail(ctx, userInfo.Email)
 		})
 	}
+
+	Token, payload, err := GetTokenAndPayload(ctx)
+	if err != nil {
+		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
+		return errcodes.AuthenticationFailed
+	}
+	content := &model.Content{}
+	_ = content.Unmarshal(payload.Content)
+	//先判断用户在redis中是否存在
+	if ok := dao.Database.Redis.CheckUserTokenValid(ctx, content.ID, Token); !ok {
+		return errcodes.UserNotFound
+	}
+	//先将token从redis中清除
+	if err := dao.Database.Redis.DeleteAllTokenByUser(ctx, content.ID); err != nil {
+		return errcode.ErrServer.WithDetails(err.Error())
+	}
 	return nil
 }
 
