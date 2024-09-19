@@ -344,6 +344,36 @@ func (message) UpdateMsgTop(ctx *gin.Context, accountID int64, params *request.P
 	// 推送 置顶 消息
 	accessToken, _ := middlewares.GetToken(ctx.Request.Header)
 	global.Worker.SendTask(task.UpdateMsgState(accessToken, params.RelationID, params.ID, server.MsgTop, params.IsTop))
+	// 创建并推送 top 消息
+	f := func() error {
+		arg := &db.CreateMessageParams{
+			NotifyType: db.MsgnotifytypeSystem,
+			MsgType:    string(model.MsgTypeText),
+			MsgContent: fmt.Sprintf(format.TopMessage, accountID),
+			MsgExtend:  pgtype.JSON{Status: pgtype.Null},
+			RelationID: msgInfo.RelationID,
+		}
+		msgRly, err := dao.Database.DB.CreateMessage(ctx, arg)
+		if err != nil {
+			return err
+		}
+		global.Worker.SendTask(task.PublishMsg(reply.ParamMsgInfoWithRly{
+			ParamMsgInfo: reply.ParamMsgInfo{
+				ID:         msgRly.ID,
+				NotifyType: string(arg.NotifyType),
+				MsgType:    arg.MsgType,
+				MsgContent: arg.MsgContent,
+				RelationID: arg.RelationID,
+				CreateAt:   msgRly.CreateAt,
+			},
+			RlyMsg: nil,
+		}))
+		return nil
+	}
+	if err := f(); err != nil {
+		global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
+		reTry("UpdateMsgTop", f)
+	}
 	return nil
 }
 
@@ -397,7 +427,7 @@ func (message) RevokeMsg(ctx *gin.Context, accountID, msgID int64) errcode.Err {
 		}
 		if err := f(); err != nil {
 			global.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
-			reTry("UpdateMsgTop", f)
+			reTry("RevokeMsg", f)
 		}
 	}
 	return nil

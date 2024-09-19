@@ -40,7 +40,7 @@ func newAccountToken(t model.TokenType, id int64) (string, *token.Payload, error
 // newUserToken
 // 成功：返回 token，
 func newUserToken(t model.TokenType, id int64, expireTime time.Duration) (string, *token.Payload, error) {
-	if t != model.AccountToken {
+	if t == model.AccountToken {
 		return "", nil, nil
 	}
 	duration := expireTime

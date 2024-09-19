@@ -15,11 +15,11 @@ const DefaultClientTimeout = time.Minute * 20
 type ChatMap struct {
 	// （GO 内置的 map 不是并发安全的，sync.Map 是并发安全的）
 	m   sync.Map // k: accountID v: ConnMap（说明 accountID 可以不止有一个客户端设备）
-	sID sync.Map // k: sID v: accountID（sID ——> socket.Conn.ID）
+	sID sync.Map // k: sID v: accountID，用于快速查找 某个连接 属于哪个 账户
 }
 
 type ConnMap struct {
-	m sync.Map // k: sID v: socketio.Conn
+	m sync.Map // k: sID v: ActiveConn（即每个 sID 对应一个活跃连接）
 }
 
 type ActiveConn struct {

@@ -2657,3 +2657,19 @@
 2024-09-17T20:22:00.809+0800	INFO	Chat/main.go:44	Server started!
 2024-09-17T20:22:41.658+0800	INFO	Chat/main.go:76	Shutdown Server.
 2024-09-17T20:22:41.658+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-19T17:12:01.555+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-19T17:12:01.645+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-19T17:12:01.888+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-19T17:12:01.893+0800	INFO	Chat/main.go:44	Server started!
+2024-09-19T17:16:45.593+0800	INFO	middlewares/logger.go:61	/api/user/login	{"status": 200, "method": "POST", "path": "/api/user/login", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.4889768}
+2024-09-19T17:17:33.218+0800	INFO	middlewares/logger.go:61	/api/user/login	{"status": 200, "method": "POST", "path": "/api/user/login", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.1768358}
+2024-09-19T20:54:49.421+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-19T21:49:21.902+0800	INFO	middlewares/logger.go:61	/api/user/register	{"status": 200, "method": "POST", "path": "/api/user/register", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.0836046}
+2024-09-19T21:49:55.505+0800	INFO	middlewares/logger.go:61	/api/user/login	{"status": 200, "method": "POST", "path": "/api/user/login", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.2895203}
+2024-09-19T21:51:13.329+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-19T21:51:13.332+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-19T21:51:22.617+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-19T21:51:22.729+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-19T21:51:23.025+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-19T21:51:23.028+0800	INFO	Chat/main.go:44	Server started!
+2024-09-19T21:51:28.745+0800	INFO	middlewares/logger.go:61	/api/user/login	{"status": 200, "method": "POST", "path": "/api/user/login", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.2256188}
