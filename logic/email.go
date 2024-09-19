@@ -33,13 +33,27 @@ func (email) ExistEmail(ctx *gin.Context, emailStr string) (*reply.ParamExistEma
 	return &reply.ParamExistEmail{Exist: ok}, nil
 }
 
-// CheckEmailNotExists 判断邮箱是否已经注册过
+// CheckEmailNotExists 判断邮箱是否存在
+// 先去缓存中查询，如果不在缓存中，再去数据库中查询，如果存在，将邮箱写入缓存中，返回邮箱已注册的错误。（旁路缓存中的读策略）
 func CheckEmailNotExists(ctx *gin.Context, emailStr string) errcode.Err {
 	result, err := email{}.ExistEmail(ctx, emailStr)
 	if err != nil {
 		return err
 	}
 	if result.Exist {
+		return errcodes.EmailExists
+	}
+	exist, myErr := dao.Database.DB.ExistEmail(ctx, emailStr)
+	if myErr != nil {
+		global.Logger.Logger.Error(err.Error(), middlewares.ErrLogMsg(ctx)...)
+		return errcode.ErrServer
+	}
+	if exist {
+		myErr = dao.Database.Redis.AddEmails(ctx, emailStr)
+		if myErr != nil {
+			global.Logger.Logger.Error(myErr.Error(), middlewares.ErrLogMsg(ctx)...)
+			return errcode.ErrServer
+		}
 		return errcodes.EmailExists
 	}
 	return nil

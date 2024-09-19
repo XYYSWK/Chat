@@ -2673,3 +2673,17 @@
 2024-09-19T21:51:23.025+0800	INFO	settings/load.go:61	关系名单加载完成
 2024-09-19T21:51:23.028+0800	INFO	Chat/main.go:44	Server started!
 2024-09-19T21:51:28.745+0800	INFO	middlewares/logger.go:61	/api/user/login	{"status": 200, "method": "POST", "path": "/api/user/login", "query": "", "ip": "127.0.0.1", "user-agent": "Apifox/1.0.0 (https://apifox.com)", "errors": "", "cost": 0.2256188}
+2024-09-19T21:59:52.794+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-19T21:59:52.795+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-19T22:35:25.906+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-19T22:35:26.002+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-19T22:35:26.288+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-19T22:35:26.292+0800	INFO	Chat/main.go:44	Server started!
+2024-09-19T22:35:36.182+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-19T22:35:36.182+0800	INFO	Chat/main.go:87	Server exited!
+2024-09-19T22:41:29.572+0800	INFO	logic/auto.go:38	auto task run: deleteExpiredFile
+2024-09-19T22:41:29.651+0800	INFO	settings/load.go:38	邮箱加载完成
+2024-09-19T22:41:29.913+0800	INFO	settings/load.go:61	关系名单加载完成
+2024-09-19T22:41:29.916+0800	INFO	Chat/main.go:44	Server started!
+2024-09-19T22:41:38.382+0800	INFO	Chat/main.go:76	Shutdown Server.
+2024-09-19T22:41:38.382+0800	INFO	Chat/main.go:87	Server exited!
